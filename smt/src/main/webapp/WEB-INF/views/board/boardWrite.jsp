@@ -13,6 +13,13 @@
 
 </head>
 <body>
+
+<!-- top과 foot으로 나눌때 위치 바꿔야 함 -->
+<script>
+
+</script>
+<!-- ---------------------------------------------------------------- -->
+
 	<!-- Wrapper -->
 	<div id="wrapper">
 
@@ -61,7 +68,7 @@
 							</table>
 
 							<ul class="actions">
-								<input type="submit" class="button special big" value="확인">
+								<btton class="button special big">확인</btton>
 								<li><a href="/board/list" class="button big">취소</a></li>
 							</ul>
 
