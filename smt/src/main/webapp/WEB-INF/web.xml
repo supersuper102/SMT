@@ -30,4 +30,15 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
+	<!-- include -->
+	<jsp-config>
+		<jsp-property-group>
+			<url-pattern>*.jsp</url-pattern>
+			<include-prelude>/inc/top.jspf</include-prelude>
+			<!-- 모든 jsp페이지에서는 상단에 top.jspf를 include하라는 의미 -->
+			<include-coda>/inc/foot.jspf</include-coda>
+			<!-- 모든 jsp페이지에서는 하단에 foot.jspf를 include하라는 의미 -->
+		</jsp-property-group>
+	</jsp-config>
+	
 </web-app>

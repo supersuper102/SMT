@@ -19,10 +19,9 @@
 			<li><a href="#" class="button big">Learn More</a></li>
 		</ul>
 	</div>
-	<span class="image object">
-	 <img src="../resources/images/pic10.jpg" alt="" />
+	<span class="image object"> 
+	<img src="../resources/images/pic10.jpg" alt="" />
 	</span>
 </section>
-
 
 <!-- Section -->
