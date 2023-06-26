@@ -1,0 +1,38 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="myctx" value="${pageContext.request.contextPath}" />
+
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>SMT</title>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet" href="./resources/assets/css/main.css" />
+<!-- jQuery library -->
+<script
+	src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
+</head>
+<script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+<body>
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Main -->
+		<div id="main">
+			<div class="inner">
+
+				<!-- Header -->
+				<header id="header">
+					<a href="${myctx}/" class="logo"><strong>SMT</strong> Say Mbit Type</a>
+					<ul class="actions" style='text-align: right'>
+						<li><a href="${myctx}/login" class="button special">login</a></li>
+						<li><a href="${myctx}/join" class="button special">join</a></li>
+					</ul>
+				</header>
