@@ -88,7 +88,7 @@
 			<input type="hidden" name="idx" value="${board.idx}">
 			
 			<textarea name="replycontent" id="replycontent" onfocus="clearPlaceholder()" onblur="setPlaceholder()" rows="5" cols="10" placeholder="댓글을 입력하세요"></textarea>
-			<button class="button special small" onclick="reply()" style="margin-top:10px; float:right;"><span style="font-size:10pt; font-family:sans-serif">등록</span></button>
+			<button class="button special small" style="margin-top:10px; float:right;"><span style="font-size:10pt; font-family:sans-serif">등록</span></button>
 		</form>
 		<br>
 		
@@ -112,8 +112,8 @@
 				</td>
 			</tr>
 			<tr id="replyText">
-				<td style="width:10%; text-align:center; color:black;">하민지</td>
-				<td style="width:65%; color:black;">댓글 쓰기</td>
+				<td style="width:10%; text-align:center; color:black;">${reply.idx}</td>
+				<td style="width:65%; color:black;">${reply.replyconent}</td>
 				<td style="width:15%">2023-06-20</td>
 				<td style="width:10%">
 					<button class="btn" onclick="editReply(this)">수정</button> |
