@@ -1,9 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!-- ckeditor 4 cdn--------------------------- -->
+<script src="https://cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script>
+<!-- ----------------------------------------- -->
 
 
 <script>
 	$(function() {
-
+		 
+		CKEDITOR.replace('bcontent',{
+			removeButtons:'Image',
+		    height: '500px'
+		});
+		 
 		$('#bf').css('font-size', '15pt');
 
 		$('#bf').submit(function() {
@@ -12,7 +20,7 @@
 				return false;
 			}
 
-			if (!$('#content').val()) {
+			if (!CKEDITOR.instances.bcontent.getData()) {
 				alert('내용을 입력하세요');
 				return false;
 			}
@@ -41,18 +49,19 @@
 				<tr>
 					<td style="text-align:center"><b>작성자</b></td>
 					<td>
-					하민지
+					<input type="text" name="idx" id="idx">
+					<!-- 하민지 -->
 					</td>
 				</tr>
 				<tr>
 					<td colspan="2">
-					<textarea name="content" id="content" rows="25" cols="50"></textarea>
+					<textarea name="content" id="bcontent"></textarea>
 					</td>
 				</tr>
 				<tr>
 					<td style="text-align:center"><b>첨부 파일</b></td>
 					<td>
-					<input type="file" name="filename" id="filename">
+					<input type="file" name="mfilename" id="filename">
 					</td>
 				</tr>
 
