@@ -6,7 +6,9 @@
 	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/spring/root-context.xml</param-value>
+		<param-value>
+			/WEB-INF/spring/root-context.xml
+		</param-value>
 	</context-param>
 	
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
@@ -30,4 +32,37 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
+	<!-- POST방식일 때 인코딩 처리 필터 -->
+	<filter>
+		<description></description>
+		<display-name>SpringEncodeFilter</display-name>
+		<filter-name>SpringEncodeFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter
+		</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>SpringEncodeFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<!-- include -->
+	<jsp-config>
+		<jsp-property-group>
+			<url-pattern>*.jsp</url-pattern>
+			<include-prelude>/inc/top.jspf</include-prelude>
+			<!-- 모든 jsp페이지에서는 상단에 top.jspf를 include하라는 의미 -->
+			<include-coda>/inc/foot.jspf</include-coda>
+			<!-- 모든 jsp페이지에서는 하단에 foot.jspf를 include하라는 의미 -->
+		</jsp-property-group>
+	</jsp-config>
+	
 </web-app>
