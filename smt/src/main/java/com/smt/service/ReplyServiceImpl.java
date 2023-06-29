@@ -22,8 +22,8 @@ public class ReplyServiceImpl implements ReplyService {
 
 	@Override
 	public List<ReplyVO> selectReply(int bno) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return this.replyMapper.selectReply(bno);
 	}
 
 	@Override

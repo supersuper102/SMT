@@ -34,7 +34,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.smt.model.BoardVO;
+
 import com.smt.service.BoardService;
+
 
 import lombok.extern.log4j.Log4j;
 
@@ -164,6 +166,8 @@ public class BoardController {
 		//글번호로 해당 글 가져오기
 		BoardVO board = this.boardService.selectBoardByBno(bno);
 		m.addAttribute("board", board);
+		
+
 		
 		return "board/boardView";
 	}
