@@ -35,7 +35,7 @@
 				<header id="header">
 					<a href="${myctx}/" class="logo"><strong>SMT</strong> Say Mbit
 						Type</a>
-					<ul class="actions" style='text-align: right'>
+					<ul class="actions" style='text-align: right' id="login_join">
 						<li><a href="${myctx}/login" class="button special">login</a></li>
 						<li><a href="${myctx}/join" class="button special">join</a></li>
 					</ul>
