@@ -153,4 +153,48 @@ body{
 	color: #F56A6A;
 }
 
+/** mbtiResult */
+#wrap3 {
+	width:100%;
+	height:80vh;
+	margin: auto;
+}
+
+.mbti-res-title {
+	width: 40%;
+	height: 100px;
+	margin-top: 4%;
+	font-family: 'RixYeoljeongdo_Regular';
+	font-size: 18px;
+	color: black;
+	text-align: center;
+}
+
+#mbti-type {
+	width: 40%;
+	height: 100px;
+	font-family: 'RixYeoljeongdo_Regular';
+	font-size: 26px;
+	color: black;
+	text-align: center;
+	margin-bottom: 5%;
+}
+
+.mbti-res-box {
+	width: 90%;
+	height: 80%;
+	font-family: 'NanumSquareNeo-Variable';
+	color: black;
+	font-size: 14px;
+}
+
+.mbti-res {
+	font-family: 'NanumSquareNeo-Variable';
+	color: black;
+	font-size: 18px;
+}
+
+#mbti-restart {
+	font-family: 'NanumSquareNeo-Variable';
+}
 
