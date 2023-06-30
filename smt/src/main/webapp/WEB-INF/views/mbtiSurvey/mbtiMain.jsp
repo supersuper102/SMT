@@ -5,15 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>SMT</title>
-<link rel="stylesheet" href="css/mbti.css" type="text/css" />
-<!-- jQuery library -->
-<script
-	src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
+<link rel="stylesheet" href="/resources/assets/css/mbti.css" type="text/css" />
 <script type="text/javascript">
 
 	$(function(){
 		console.log("ㅈㅇㅋㄹ");
-		$('#mbtiButton').on('click', function(){
+		$('#mbti-start-button').on('click', function(){
 			document.location.href="/mbtiQuestion.do"; // 잘 안쓴다			
 		});
 	})
@@ -23,16 +20,17 @@
 </head>
 <body>
 	<div id="wrap">
-		<div class="surveyBox">
-			<div class="mbtiTitle">
-				<h1>본인의 MBTI를 모른다면 테스트를 시작하세요</h1>
+		<div class="survey-box">
+			<div id="mbti-title-box">
+				<p id="mbti-title">SAY MY TYPE!<br>MBTI테스트</p>
 			</div>
-			<div class="mbtiContent">
-				<p>해당 검사는 본 사이트에서 자체 개발한 무료 검사이며 각 문항마다 평소와 가까운 답을 선택하면 됩니다. 검사를 시작하시려면 시작 버튼을 눌러주세요.				
+			<div id="mbti-content">
+				<p>해당 검사는 본 사이트에서 자체 개발한 무료 검사이며<br>각 문항마다 평소와 가까운 답을 선택하면 됩니다.<br>검사를 시작하시려면 시작 버튼을 눌러주세요.				
 			</div>
 			<div>
-				<button id="mbtiButton">테스트 시작!</button>
-			</div>			
+				<button id="mbti-start-button">테스트 시작!</button>
+			</div>
+
 		</div>
 	</div>
 </body>

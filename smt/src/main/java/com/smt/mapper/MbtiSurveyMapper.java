@@ -1,4 +1,4 @@
-package com.smt.mbti.mapper;
+package com.smt.mapper;
 
 public interface MbtiSurveyMapper {
 	
