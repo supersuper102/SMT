@@ -7,7 +7,7 @@
 		<h3 style="color: #f56a6a; text-align: center;">LOGIN</h3>
 		
 		<c:if test = "${result == 0 }">
-			<div class = "login_warn" style="padding-bottom: 10px;">사용자 ID 또는 비밀번호를 잘못 입력하셨습니다.</div>
+			<div class = "login_warn" style="padding-bottom: 10px;">ID 또는 비밀번호를 확인하여 주십시오.</div>
 		</c:if>
 		
 		<div class="form" style="padding: 10px;">
