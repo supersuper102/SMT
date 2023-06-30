@@ -13,10 +13,10 @@
 	var sn = 0;
 	var ft = 0;
 	var pj = 0;
-	var eitemp =0;
-	var sntemp =0;
-	var fttemp =0;
-	var pjtemp =0;
+	var eitemp = 0;
+	var sntemp = 0;
+	var fttemp = 0;
+	var pjtemp = 0;
 	
 	//mbti 결과 변수
 	var result = '';

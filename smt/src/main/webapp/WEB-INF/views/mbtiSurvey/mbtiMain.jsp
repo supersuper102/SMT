@@ -9,7 +9,7 @@
 <script type="text/javascript">
 
 	$(function(){
-		console.log("ㅈㅇㅋㄹ");
+		// console.log("ㅈㅇㅋㄹ");
 		$('#mbti-start-button').on('click', function(){
 			document.location.href="/mbtiQuestion.do"; // 잘 안쓴다			
 		});
