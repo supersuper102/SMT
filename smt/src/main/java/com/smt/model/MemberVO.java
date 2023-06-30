@@ -8,9 +8,7 @@ public class MemberVO {
 
 	private String name;
 	private java.sql.Date bday;
-	private String hp1;
-	private String hp2;
-	private String hp3;
+	private String email;
 
 	private String nick_name;
 	private String pimage;
@@ -63,28 +61,12 @@ public class MemberVO {
 		this.bday = bday;
 	}
 
-	public String getHp1() {
-		return hp1;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setHp1(String hp1) {
-		this.hp1 = hp1;
-	}
-
-	public String getHp2() {
-		return hp2;
-	}
-
-	public void setHp2(String hp2) {
-		this.hp2 = hp2;
-	}
-
-	public String getHp3() {
-		return hp3;
-	}
-
-	public void setHp3(String hp3) {
-		this.hp3 = hp3;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getNick_name() {
@@ -126,17 +108,13 @@ public class MemberVO {
 	public void setMstate(int mstate) {
 		this.mstate = mstate;
 	}
-	
-	public String getAllHp() {
-		return hp1+"-"+hp2+"-"+hp3;
-	}
-	
 
 	@Override
 	public String toString() {
 		return "MemberVO [idx=" + idx + ", userid=" + userid + ", userpwd=" + userpwd + ", name=" + name + ", bday="
-				+ bday + ", hp1=" + hp1 + ", hp2=" + hp2 + ", hp3=" + hp3 + ", nick_name=" + nick_name + ", pimage="
-				+ pimage + ", mbti_type=" + mbti_type + ", indate=" + indate + ", mstate=" + mstate + "]";
+				+ bday + ", email=" + email + ", nick_name=" + nick_name + ", pimage=" + pimage + ", mbti_type="
+				+ mbti_type + ", indate=" + indate + ", mstate=" + mstate + "]";
 	}
-
+	
+	
 }
