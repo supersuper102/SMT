@@ -1,4 +1,4 @@
-package com.smt.mbti.service;
+package com.smt.service;
 
 public interface MbtiSurveyService {
 	
