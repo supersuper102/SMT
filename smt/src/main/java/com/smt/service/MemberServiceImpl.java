@@ -11,7 +11,8 @@ public class MemberServiceImpl implements MemberService{
 
 	@Autowired
 	MemberMapper membermapper;
-
+	
+	/*회원 가입*/
 	@Override
 	public void memberJoin(MemberVO member) throws Exception {
 		
@@ -19,6 +20,17 @@ public class MemberServiceImpl implements MemberService{
 		
 	}
 	
+	/*아이디 중복 검사*/
+	@Override
+	public int idCheck(String userid) throws Exception {
+		
+		return membermapper.idCheck(userid);
+	}
 	
-	
+	/* 로그인 */
+    @Override
+    public MemberVO memberLogin(MemberVO member) throws Exception {
+        
+        return membermapper.memberLogin(member);
+    }
 }

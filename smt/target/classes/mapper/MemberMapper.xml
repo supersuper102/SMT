@@ -9,7 +9,22 @@
 			select member_seq.nextval from dual
 		</selectKey>
 		insert into member
-		values(#{idx},#{userid},#{userpwd},#{name},#{bday},#{hp1},#{hp2},#{hp3}
+		values(#{idx},#{userid},#{userpwd},#{name},#{bday},#{email}
 		,#{nick_name},#{mbti_type:VARCHAR},#{pimage:VARCHAR},SYSDATE,0)
 	</insert>
+
+	<!-- 아이디 중복검사 -->
+	<select id="idCheck" resultType="int">
+
+		select count(*) from member where userid = #{userid}
+
+	</select>
+
+	<!-- 로그인 -->
+	<select id="memberLogin" resultType="com.smt.model.MemberVO">
+
+		select userid, nick_name, mbti_type, pimage from member where
+		userid = #{userid} and userpwd = #{userpwd}
+
+	</select>
 </mapper>
