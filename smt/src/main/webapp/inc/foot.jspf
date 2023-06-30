@@ -26,9 +26,8 @@
 				<li><a href="#">Elements</a>
 				<li><span class="opener">AI 상담</span>
 					<ul>
-						<li><a href="book.html">책 추천</a></li>
-						<li><a href="movie.html">영화 추천</a></li>
-						<li><a href="chat.html">실시간 ai 상담</a></li>
+
+						<li><a href="/chat/chat"]">실시간 ai 상담</a></li>
 
 					</ul></li>
 

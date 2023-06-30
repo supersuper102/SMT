@@ -9,7 +9,7 @@
 			select member_seq.nextval from dual
 		</selectKey>
 		insert into member
-		values(#{idx},#{userid},#{userpwd},#{name},#{bday},#{hp1},#{hp2},#{hp3}
+		values(#{idx},#{userid},#{userpwd},#{name},#{bday},#{email}
 		,#{nick_name},#{mbti_type:VARCHAR},#{pimage:VARCHAR},SYSDATE,0)
 	</insert>
 </mapper>
