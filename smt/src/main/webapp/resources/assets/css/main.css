@@ -4062,3 +4062,37 @@
 			margin-top: 0;
 			padding-top: 0;
 		}
+
+/* 중복아이디 존재하지 않는경우 */
+.id_ck_yes {
+	color: green;
+	display: none;
+}
+/* 중복아이디 존재하는 경우 */
+.id_ck_no {
+	color: red;
+	display: none;
+}
+
+/* 메일 체크 */
+#mail_ck_false{
+    background-color:#ebebe4;
+}
+ 
+#mail_ck_true{
+    background-color:white;
+}
+
+/* 메일 인증 번호 체크*/
+.correct{
+    color : green;
+}
+.incorrect{
+    color : red;
+}
+
+/* 로그인 실패시 경고글 */
+.login_warn{
+    text-align: center;
+    color : red;
+}
