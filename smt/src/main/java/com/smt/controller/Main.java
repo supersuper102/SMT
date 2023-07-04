@@ -24,7 +24,10 @@ public class Main {
 
     public static String chatGPT(String message) {
         String url = "https://api.openai.com/v1/chat/completions";
+
         String apiKey = ""; 
+
+      
         String model = "gpt-3.5-turbo"; // current model of chatgpt api
 
         try {
@@ -35,8 +38,10 @@ public class Main {
             con.setRequestProperty("Authorization", "Bearer " + apiKey);
             con.setRequestProperty("Content-Type", "application/json");
 
-            // Build the request body
             String body = "{\"model\": \"" + model + "\", \"messages\": [{\"role\": \"system\", \"content\": \"20자이내라 답변해줘" + message + "\"}]}";
+
+        
+
             con.setDoOutput(true);
             OutputStreamWriter writer = new OutputStreamWriter(con.getOutputStream());
             writer.write(body);
