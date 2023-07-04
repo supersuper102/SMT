@@ -148,8 +148,8 @@
 	        var birthday = $('#bday').val();        // 주소 입력란
 	        var mail = $('#email').val();            // 이메일 입력란
 	        var nickname = $('#nick_name').val();        // 주소 입력란
-			//$("#join_form").attr("action", "${myctx}/join");
-			//$("#join_form").submit();
+			$("#join_form").attr("action", "${myctx}/join");
+			$("#join_form").submit();
 		});
 	});
 
