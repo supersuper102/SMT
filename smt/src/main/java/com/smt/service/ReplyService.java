@@ -14,4 +14,6 @@ public interface ReplyService {
 	
 	int deleteReply(int rno);//댓글 삭제
 	
+	int deleteAllReply(int bno);//댓글 전체 삭제
+	
 }

@@ -23,11 +23,6 @@ public class BoardServiceImpl implements BoardService {
 		//this는 BoardServiceImpl를 가리키고 생략해도 됨
 	}
 
-	@Override
-	public String getNicknameByIdx(int idx) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public List<BoardVO> selectBoardAll2() {
