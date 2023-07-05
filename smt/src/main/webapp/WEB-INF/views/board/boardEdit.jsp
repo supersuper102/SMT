@@ -33,7 +33,7 @@
 			<h2 style="text-align:center; font-family:sans-serif">게시판 수정 페이지</h2>
 		</header>
 
-		<!-- 내가 작성------------------------------------ -->
+		
 		<form name="bf" id="bf" action="edit/${board.bno}" method="post" style="font-size:15pt" enctype="multipart/form-data">
 			<input type="hidden" name="bno" value="${board.bno }">
 			<table>
@@ -79,7 +79,7 @@
 
 
 		</form>
-		<!-- -------------------------------- -->
+		
 	</div>
 
 </section>

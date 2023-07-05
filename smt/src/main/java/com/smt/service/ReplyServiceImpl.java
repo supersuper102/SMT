@@ -16,8 +16,8 @@ public class ReplyServiceImpl implements ReplyService {
 
 	@Override
 	public int insertReply(ReplyVO reply) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return replyMapper.insertReply(reply);
 	}
 
 	@Override
@@ -28,14 +28,20 @@ public class ReplyServiceImpl implements ReplyService {
 
 	@Override
 	public int updateReply(ReplyVO reply) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return this.replyMapper.updateReply(reply);
 	}
 
 	@Override
 	public int deleteReply(int rno) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		return this.replyMapper.deleteReply(rno);
+	}
+
+	@Override
+	public int deleteAllReply(int bno) {
+		
+		return this.replyMapper.deleteAllReply(bno);
 	}
 
 }

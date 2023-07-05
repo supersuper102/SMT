@@ -37,7 +37,7 @@
 			<h2 style="text-align:center; font-family:sans-serif">게시판 글쓰기 페이지</h2>
 		</header>
 
-		<!-- 내가 작성------------------------------------ -->
+		
 		<form name="bf" id="bf" action="write" method="post" enctype="multipart/form-data">
 			<table>
 				<tr>
@@ -74,7 +74,7 @@
 
 
 		</form>
-		<!-- -------------------------------- -->
+		
 	</div>
 
 </section>
