@@ -34,9 +34,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.smt.model.BoardVO;
-
 import com.smt.service.BoardService;
-
+import com.smt.service.ReplyService;
 
 import lombok.extern.log4j.Log4j;
 
@@ -47,6 +46,9 @@ public class BoardController {
 
 	@Resource(name="boardService")
 	private BoardService boardService;
+	
+	@Resource(name="replyService")
+	private ReplyService replyService;
 	
 	@GetMapping("/write")
 	public String boardForm() {
@@ -244,6 +246,9 @@ public class BoardController {
 		
 		BoardVO board = this.boardService.selectBoardByBno(vo.getBno());
 		m.addAttribute("board", board);
+		
+		//댓글 삭제
+		this.replyService.deleteAllReply(vo.getBno());
 		
 		//db에서 글 삭제
 		int n = this.boardService.deleteBoard(vo.getBno());
