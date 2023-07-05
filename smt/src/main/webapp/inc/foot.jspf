@@ -16,24 +16,21 @@
 		</section>
 
 		<!-- Menu -->
-		<nav id="menu">
-			<header class="major">
-				<h2>Menu</h2>
-			</header>
-			<ul>
-				<li><a href="/">Homepage</a></li>
-				<li><a href="/board/list">Board</a></li>
-				<li><a href="#">Elements</a>
-				<li><span class="opener">AI 상담</span>
-					<ul>
-
-						<li><a href="/chat/chat"]">실시간 ai 상담</a></li>
-
-					</ul></li>
-
-
-			</ul>
-		</nav>
+	<nav id="menu">
+    <header class="major">
+        <h2>Menu</h2>
+    </header>
+    <ul>
+        <li><a href="/">Homepage</a></li>
+        <li><a href="/board/list">Board</a></li>
+        <li><a href="#">Elements</a>
+           <li><a href="/chat/chat" class="ai-consultation">실시간 ai 상담</a></li>
+            <ul>
+              
+            
+            </ul></li>
+    </ul>
+</nav>
 
 		<!-- Footer -->
 		<footer id="footer">
@@ -54,8 +51,21 @@
 <script src="/resources/assets/js/jquery.min.js"></script>
 <script src="/resources/assets/js/skel.min.js"></script>
 <script src="/resources/assets/js/util.js"></script>
-
 <script src="/resources/assets/js/main.js"></script>
+
+<script>
+$(document).ready(function() {
+    $('.ai-consultation').click(function(event) {
+        <c:choose>
+            <c:when test="${ member == null }">
+                event.preventDefault();
+                alert('로그인하고 이용하시기 바랍니다.');
+                window.location.href = "${myctx}/login";
+            </c:when>
+        </c:choose>
+    });
+});
+</script>
 
 </body>
 </html>

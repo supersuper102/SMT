@@ -6,28 +6,30 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Scanner;
+import java.util.Map;
 
-public class Main {
+import javax.servlet.http.HttpServletResponse;
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
-        System.out.print("메시지를 입력하세요: ");
-        String message = scanner.nextLine();
+@RestController
+@RequestMapping("/chat")
+public class ChatController {
 
-        String response = chatGPT(message);
-        System.out.println("응답: " + response);
+    private static final int MAX_INPUT_LENGTH = 300;
+    private static final int MAX_RESPONSE_LENGTH = 100;
 
-        scanner.close();
-    }
-
-    public static String chatGPT(String message) {
+    @PostMapping(value="/chat", consumes="application/json", produces="application/json; charset=UTF-8")
+    public static String chatGPT(@RequestBody Map<String, String> payload, HttpServletResponse res) {
+    	String message = payload.get("userMessage");
         String url = "https://api.openai.com/v1/chat/completions";
-
         String apiKey = ""; 
-
-      
         String model = "gpt-3.5-turbo"; // current model of chatgpt api
 
         try {
@@ -36,12 +38,10 @@ public class Main {
             HttpURLConnection con = (HttpURLConnection) obj.openConnection();
             con.setRequestMethod("POST");
             con.setRequestProperty("Authorization", "Bearer " + apiKey);
-            con.setRequestProperty("Content-Type", "application/json");
+            con.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
 
+            // Build the request body
             String body = "{\"model\": \"" + model + "\", \"messages\": [{\"role\": \"system\", \"content\": \"20자이내라 답변해줘" + message + "\"}]}";
-
-        
-
             con.setDoOutput(true);
             OutputStreamWriter writer = new OutputStreamWriter(con.getOutputStream());
             writer.write(body);
@@ -56,8 +56,12 @@ public class Main {
                 response.append(inputLine);
             }
             in.close();
+            
+            System.out.println("ChatController===" + extractContentFromResponse(response.toString()));
 
             // returns the extracted contents of the response.
+            
+            res.setCharacterEncoding("UTF-8");
             return extractContentFromResponse(response.toString());
 
         } catch (IOException e) {
@@ -65,10 +69,21 @@ public class Main {
         }
     }
 
-    // This method extracts the response expected from chatgpt and returns it.
     public static String extractContentFromResponse(String response) {
         int startMarker = response.indexOf("content")+11; // Marker for where the content starts.
         int endMarker = response.indexOf("\"", startMarker); // Marker for where the content ends.
         return response.substring(startMarker, endMarker); // Returns the substring containing only the response.
     }
+
+
+	// 채팅 화면을 보여주는 핸들러
+    @GetMapping(value="/chat", produces="text/html")   
+    @ResponseBody
+    public ModelAndView chatPage() {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("chat/chat"); 
+        return mav;
+    }
+
+    
 }
