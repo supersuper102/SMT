@@ -24,6 +24,16 @@
 		<property name="password" value="${Global.Password}"/>
 	</bean>
 	
+	<!-- DBCP 커넥션풀빈 등록 -->
+	<!-- 
+	<bean id="dataSource-oracle" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${Global.DriverClassName}"></property>
+		<property name="url" value="${Global.Url}"/>
+		<property name="username" value="${Global.Username}"/>
+		<property name="password" value="${Global.Password}"/>
+	</bean>
+	  -->
+	
 	<bean id="dataSource-hikari" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
 		<constructor-arg ref="hikariConfig"/>
 	</bean>
