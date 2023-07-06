@@ -58,7 +58,6 @@ input {
 				<td style="width: 10%">조회수</td>
 			</tr>
 			
-			<!--  -->
 			<c:if test="${boardArr eq null or empty boardArr}">
 				<tr>
 					<td colspan="5" style="font-size:15pt">
@@ -84,7 +83,6 @@ input {
 					</tr>
 				</c:forEach>
 			</c:if>
-			<!--  -->
 
 		</table>
 

@@ -22,7 +22,7 @@
 		</c:if>
 		
 		<c:if test="${board ne null}">
-			<!-- 내가 작성------------------------------------ -->
+			
 			<form name="bf" id="bf" method="post">
 				<input type="hidden" name="bno" value="${board.bno}">
 				<table>
@@ -78,60 +78,22 @@
 		
 		<!-- 파일 다운로드를 위한 form------------------------------------ -->
 		<form name="fileF" id="fileF" method="POST" action="../fileDown">
-			<input type="hidden" name="fname" value="<c:out value="${board.filename}"/>">
-			<input type="hidden" name="origin_fname" value="<c:out value="${board.origin_filename}"/>">
+			<input type="hidden" name="fname" value="${board.filename}">
+			<input type="hidden" name="origin_fname" value="${board.origin_filename}">
 		</form>
 		
 		<!-- 댓글 작성을 위한 form----------------------------------------- -->
 		<form name="rf" id="rf">
-			<input type="hidden" name="bno" value="${board.bno}">
-			<input type="hidden" name="idx" value="${board.idx}">
-			
-			<textarea name="replycontent" id="replycontent" onfocus="clearPlaceholder()" onblur="setPlaceholder()" rows="5" cols="10" placeholder="댓글을 입력하세요"></textarea>
-			<button class="button special small" style="margin-top:10px; float:right;"><span style="font-size:10pt; font-family:sans-serif">등록</span></button>
+			<input type="hidden" name="bno" id="bno" value="${board.bno}">
+			<input type="hidden" name="idx" id="idx" value="${board.idx}">
+			<b>${board.idx}</b>
+			<textarea name="replycontent" id="replycontent" rows="5" cols="10" placeholder="댓글을 입력하세요"></textarea>
+			<button class="button special small" onclick="replyInsert()" style="margin-top:10px; float:right;"><span style="font-size:10pt; font-family:sans-serif">등록</span></button>
 		</form>
 		<br>
 		
-		<table>
-			<tr>
-				<td style="width:10%; text-align:center; color:black;">하민지</td>
-				<td style="width:65; color:black;">댓글 쓰기</td>
-				<td style="width:15%">2023-06-20</td>
-				<td style="width:10%">
-					<button class="btn">수정</button> |
-					<button class="btn">삭제</button>
-				</td>
-			</tr>
-			<tr>
-				<td style="width:10%; text-align:center; color:black;">하민지</td>
-				<td style="width:65; color:black;">댓글 쓰기</td>
-				<td style="width:15%">2023-06-20</td>
-				<td style="width:10%">
-					<button class="btn">수정</button> |
-					<button class="btn">삭제</button>
-				</td>
-			</tr>
-			<tr id="replyText">
-				<td style="width:10%; text-align:center; color:black;">${reply.idx}</td>
-				<td style="width:65%; color:black;">${reply.replyconent}</td>
-				<td style="width:15%">2023-06-20</td>
-				<td style="width:10%">
-					<button class="btn" onclick="editReply(this)">수정</button> |
-					<button class="btn">삭제</button>
-				</td>
-				
-			</tr>
-			<tr id="editForm" style="display: none;">
-				<td colspan="4">
-					<form name="ref" id="ref" method="post">
-						<textarea name="replycontent" id="replyEditcontent" rows="2" cols="10">댓글 수정 눌렀을 때 댓글 내용이 나와야 함</textarea>
-						<button class="button special small" style="margin-top:10px; float:right;" onclick="submitEditedReply()"><span style="font-size:10pt; font-family:sans-serif">등록</span></button>
-					</form>
-				</td>
-			</tr>
-
-		</table>
-		<!-- -------------------------------- -->
+		<div id="reply_data"></div>
+		
 	</div>
 <script>
 	
@@ -140,26 +102,169 @@
 		fileF.submit();
 	}//----------------------
 
-  function editReply(button) {
-	    // 기존 텍스트 숨김
-	    document.getElementById("replyText").style.display = "none";
-	    // 원래 작성된 댓글을 가져와서 수정 폼에 설정
-	    var originalReply = button.parentNode.parentNode.getElementsByTagName("td")[1].innerText;
-	    document.getElementById("replyEditcontent").value = originalReply;
+	//모든 댓글 목록 가져오기
+	$(function(){
+		getAllReply();
+	});
+	
+	//댓글 작성
+	const replyInsert=function(){
+		let bno=$('#bno').val();
+		let idx=$('#idx').val();
+		let replycontent=$('#replycontent').val();
+		let jsonData={
+				bno:bno,
+				idx:idx,
+				replycontent:replycontent
+		};
+		console.log(JSON.stringify(jsonData));
+		
+		$.ajax({
+			type:'post',
+			url:'/replyWrite',
+			data:JSON.stringify(jsonData),
+			contentType:'application/json; charset=UTF-8',
+			dataType:'json',
+			cache:false,
+			success:function(res){
+				if(res.result=="OK"){
+					getAllReply();
+				}else{
+					alert('댓글 작성 실패');
+				}
+			},
+			error:function(err){
+				alert(err.status);
+			}
+		});
+	}//-------------------------
+
+	
+	//모든 댓글 목록 가져오기
+	const getAllReply=function(){
+		let bno=$('#bno').val();
+		let jsonData={
+				bno:bno
+		}
+				
+		$.ajax({
+			type:'get',
+			url:'/replyList?bno=' + bno,
+			contentType:'application/json; charset=UTF-8',
+			dataType:'json',
+			success:function(res){
+				//alert(JSON.stringify(res))
+				showReply(res);
+			},
+			error:function(err){
+				alert(err.status)
+			}
+		})
+	}//------------------------------
+	
+	const showReply=function(res){
+		let str= '<table>';
+		$.each(res, (i, reply)=>{
+			str+= '<tr id="replyText'+reply.rno+'">';
+			str+= '<td style="width:10%; text-align:center; color:black;">';
+			str+= reply.idx;
+			str+= '</td>';
+			
+			str+= '<td width="65%; color:black;">';
+			str+= reply.replycontent;
+			str+= '</td>';
+			
+			str+= '<td width="15%">';
+			str+= reply.wdate;
+			str+= '</td>';
+			
+			str+= '<td style="width:10%">';
+			str+= '<button class="btn" onclick="editReply('+reply.rno+')">수정</button> | ';
+			str+= '<button class="btn" onclick="delReply(\''+reply.rno+'\')">삭제</button>';
+			str+= '</td>';
+			str+= '</tr>';
+			
+			str+= '<tr id="editForm'+reply.rno+'" style="display: none;">';
+			str+= '<td colspan="4">';
+			str+= '<form name="ref" id="ref">';
+			str+= '<textarea name="replycontent" id="replyEditcontent'+reply.rno+'" rows="2" cols="10">';
+			str+= reply.replycontent;
+			str+= '</textarea>';
+			str+= '<button class="button special small" style="margin-top:10px; float:right;" onclick="submitEditReply(\''+reply.rno+'\')">';
+			str+= '<span style="font-size:10pt; font-family:sans-serif">등록</span></button>';
+			str+= '</form>';
+			str+= '</td>';
+			str+= '</tr>';
+		})
+			
+			str+= '</table>';
+		$('#reply_data').html(str);
+	}//------------------------------
+	
+	//댓글 삭제
+	const delReply=function(rno){
+
+		let url = "/replyDel/"+rno;
+		$.ajax({
+			type:'delete',
+			url:url,
+			dataType:'json',
+			cache:false,
+			success:function(res){
+				
+				if(res.result=='OK'){
+					getAllReply();
+				}else{
+					alert('댓글 삭제 실패');
+				}
+			},
+			error:function(err){
+				alert(err.status);
+			}
+		})
+	}//------------------------------
+
+	
+  	const editReply=function(rno) {
+	    // 댓글 숨김
+	    document.getElementById("replyText"+rno).style.display = "none";
+
 	    // 수정 폼 표시
-	    document.getElementById("editForm").style.display = "table-row";
+	    document.getElementById("editForm"+rno).style.display = "table-row";
 	}
 
-	function submitEditedReply() {
-	    // 수정된 내용을 가져옴
-	    var editedReply = document.getElementById("replyEditcontent").value;
-	    // 수정된 내용을 기존 텍스트에 설정
-	    document.getElementById("replyText").innerText = editedReply;
-	    // 수정 폼 숨김
-	    document.getElementById("editForm").style.display = "none";
-	    // 기존 텍스트 표시
-	    document.getElementById("replyText").style.display = "inline";
-	}
+	//댓글 수정 처리
+   	const submitEditReply=function(rno){
+   		let bno=$('#bno').val();
+		let idx=$('#idx').val();
+		let replycontent=$('#replyEditcontent'+rno).val();
+		let jsonData={
+				bno:bno,
+				idx:idx,
+				replycontent:replycontent
+		};
+		alert(JSON.stringify(jsonData));
+		
+		$.ajax({
+			type:'put',
+			url:'/replyEdit/'+rno,
+			data:JSON.stringify(jsonData),
+			contentType:'application/json; charset=UTF-8',
+			dataType:'json',
+			cache:false,
+			success:function(res){
+				if(res.result=="OK"){
+					getAllReply();
+				}else{
+					alert('댓글 수정 실패');
+				}
+			},
+			error:function(err){
+				alert(err.status);
+			}
+		});
+	}//-------------------------
+	
 </script>
 </section>
 <!-- Section -->

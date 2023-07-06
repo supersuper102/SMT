@@ -10,9 +10,6 @@ public interface BoardService {
 
 	int insertBoard(BoardVO board);
 
-	//회원번호에 해당하는 닉네임 가져오기
-	String getNicknameByIdx(int idx);
-	
 	// 페이지 처리 안하고 게시목록 가져오기
 	List<BoardVO> selectBoardAll2();
 	// 페이지 처리하고 게시목록 가져오기
