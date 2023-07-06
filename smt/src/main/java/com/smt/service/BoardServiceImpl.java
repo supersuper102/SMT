@@ -67,6 +67,13 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 
+	@Override
+	public String getNickNameByMemberIdx(int idx) {
+		
+		return this.boardMapper.getNickNameByMemberIdx(idx);
+	}
+
+
 
 
 }
