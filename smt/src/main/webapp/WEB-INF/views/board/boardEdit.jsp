@@ -46,7 +46,7 @@
 				<tr>
 					<td style="text-align:center"><b>작성자</b></td>
 					<td>
-					${board.idx}
+					${board.nick_name}
 					</td>
 				</tr>
 				<tr>

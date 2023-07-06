@@ -49,8 +49,7 @@
 				<tr>
 					<td style="text-align:center"><b>작성자</b></td>
 					<td>
-					<input type="text" name="idx" id="idx">
-					<!-- 하민지 -->
+					${member.nick_name}
 					</td>
 				</tr>
 				<tr>
