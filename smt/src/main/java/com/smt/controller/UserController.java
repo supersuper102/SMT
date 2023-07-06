@@ -7,6 +7,7 @@ import javax.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,6 +27,9 @@ public class UserController {
 	
 	@Autowired
 	private JavaMailSender mailSender;
+	
+	@Autowired
+    private BCryptPasswordEncoder pwEncoder;
 
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
 	public String joinForm() {
@@ -39,11 +43,16 @@ public class UserController {
 		log.info("join 진입");
 		/* System.out.println("member=="+member.getUserid()); */
 
-		// 회원가입 서비스 실행
-		memberService.memberJoin(member);
-
-		log.info("join Service 성공");
-
+		String exPwd = "";					// 인코딩 전 비밀번호
+        String encodePwd = "";				// 인코딩 후 비밀번호
+        
+        exPwd = member.getUserpwd();            // 비밀번호 데이터 얻음
+        encodePwd = pwEncoder.encode(exPwd);	// 비밀번호 인코딩
+        member.setUserpwd(encodePwd);			// 인코딩된 비밀번호 member객체에 다시 저장
+        
+        /* 회원가입 쿼리 실행 */
+        memberService.memberJoin(member);
+        
 		return "index";
 
 	}
@@ -68,6 +77,49 @@ public class UserController {
 				
 			}	
 		} // userIdChkPOST() 종료	
+		
+		/* 닉네임 중복 검사*/
+		@RequestMapping(value = "/userNickChk", method = RequestMethod.POST)
+		@ResponseBody
+		public String userNickChkPOST(String nick_name) throws Exception{
+			
+			//log.info("userIdChk() 진입");
+			int result = memberService.nickCheck(nick_name);
+			
+			//log.info("결과값 = " + result);
+			
+			if(result != 0) {
+				
+				return "fail";	// 중복 아이디가 존재
+				
+			} else {
+				
+				return "success";	// 중복 아이디 x
+				
+			}	
+		} // userNickChkPOST() 종료
+		
+		
+		/* 이메일 중복 검사*/
+		@RequestMapping(value = "/userEmailChk", method = RequestMethod.POST)
+		@ResponseBody
+		public String userEmailChkPOST(String email) throws Exception{
+			
+			//log.info("userIdChk() 진입");
+			int result = memberService.emailCheck(email);
+			
+			//log.info("결과값 = " + result);
+			
+			if(result != 0) {
+				
+				return "fail";	// 중복 아이디가 존재
+				
+			} else {
+				
+				return "success";	// 중복 아이디 x
+				
+			}	
+		} // userEmailChkPOST() 종료
 		
 		/* 이메일 인증 */
 	    @RequestMapping(value="/mailCheck", method=RequestMethod.GET)
