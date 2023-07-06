@@ -124,3 +124,4 @@ $RECYCLE.BIN/
 .settings/
 /target/
 */target/**
+pom.properties

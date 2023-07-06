@@ -12,7 +12,7 @@
 	content="width=device-width, initial-scale=1, user-scalable=no" />
 
 <link rel="stylesheet" href="/resources/assets/css/main.css" />
-
+<link rel="stylesheet" href="/resources/assets/css/member.css" type="text/css" />
 <!-- jquery 라이브러리 CDN방식으로 참조------------- -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>

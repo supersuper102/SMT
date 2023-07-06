@@ -1,6 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<link rel="stylesheet" href="/resources/assets/css/member.css" type="text/css" />
+
+<%-- request.getCookies() --%>
+<c:forEach var="ck" items="${pageContext.request.cookies}">
+	<%-- ${ck.name}=> ${ck.value } --%>
+	<c:if test="${ck.name eq 'userid'}">
+		<c:set var="userid" value="${ck.value}" />
+	</c:if>
+</c:forEach>
 
 <div class="box" style="padding: 20px;">
 	<form method="post" id="login_form">
@@ -12,7 +19,7 @@
 		
 		<div class="form" style="padding: 10px;">
 			<input type="text" class="form-control" placeholder="ID"
-				name="userid" id="userid" maxlength="20">
+				name="userid" id="userid" value="${userid}" maxlength="20">
 		</div>
 		
 		<div class="form" style="padding: 10px;">
@@ -21,7 +28,9 @@
 		</div>
 		
 		<div style="text-align: right; padding: 5px;">
-			<input type="checkbox" name="saveId" id="saveId">
+			<input type="checkbox" name="saveId"
+			<c:if test="${userid ne null and not empty userid}">checked</c:if>
+			 id="saveId">
 			<label for="saveId"> 아이디 저장 </label>
 		</div>
 		
@@ -32,8 +41,8 @@
 		
 		
 		<div style="color: #f56a6a; text-align: center; font-weight: bold;">
-			<a href=#>아이디 찾기</a>|
-			<a href=#>비밀번호 찾기</a>|
+			<a href="${myctx}/id_find">아이디 찾기</a>|
+			<a href="${myctx}/pwd_find">비밀번호 찾기</a>|
 			<a href="${myctx}/join">회원 가입</a>
 		</div>
 	</form>
