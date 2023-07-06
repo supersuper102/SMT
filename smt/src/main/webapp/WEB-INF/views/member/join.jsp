@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<link rel="stylesheet" href="/resources/assets/css/member.css" type="text/css" />
-<!-- form 양식 체크하는 js파일 들어갈 자리 -->
-
+	
 <div class="box" style="padding: 20px; width: 100%">
 	<form id="join_form" method="post">
 		<h2 style="color: #f56a6a; text-align: center;">회원가입 - Signup</h2>
@@ -59,8 +57,10 @@
 		<div id="mail_wrap" style="width: 100%">
 			<div style="color: #f56a6a; font-weight: bold;">이메일</div>
 			<div>
-				<input type="email" name="email" id="email">
+				<input type="email" name="email" id="email" placeholder="Email">
 			</div>
+			<span class="mail_ck_yes">사용가능한 이메일 입니다.</span>
+			<span class="mail_ck_no">이미 가입된 이메일 입니다.</span>
 			<span class="mail_warn"></span>
 			<span class="final_email_ck">이메일을 입력해주세요.</span>
 		</div>
@@ -68,7 +68,7 @@
 		<div id="mail_ck_wrap" style="width: 100%">
 			<div style="color: #f56a6a; font-weight: bold;">인증번호 확인</div>
 			<div class="mail_ck_box" style="width: 83%; float: left;" id="mail_ck_false">
-				<input type="text" name="email_ck" id="email_ck" disabled="disabled">
+				<input type="text" name="email_ck" id="email_ck" disabled="disabled" placeholder="Email-Number">
 			</div>
 			<div align="right"
 				style="width: 15%; float: right; text-align: center;">
@@ -84,6 +84,8 @@
 			<div>
 				<input type="text" name="nick_name" id="nick_name" placeholder="Nick Name">
 			</div>
+			<span class="nick_ck_yes">사용 가능한 닉네임입니다.</span>
+			<span class="nick_ck_no">닉네임이 이미 존재합니다.</span>
 			<span class="nick_warn">닉네임은 특수문자를 제외한 10글자 이내만 가능합니다.</span>
 			<span class="final_nick_ck">닉네임을 입력해주세요.</span>
 		</div>
@@ -140,8 +142,10 @@
 	 var name_ck = false;			// 이름
 	 var bday_ck = false;			// 생년월일 체크
 	 var email_ck = false;			// 이메일
+	 var mail_ck = false;			// 이메일 중복 검사
 	 var emailnum_ck = false;		// 이메일 인증번호 확인
-	 var nick_ck = false;			// 닉네임
+	 var nick_name_ck = false;		// 닉네임
+	 var nick_ck = false;			// 닉네임 중복 검사
 	 var id_warn_ck = false;		// 아이디 형식체크
 	 var pwd_warn_ck = false;		// 비밀번호 형식체크
 	 var name_warn_ck = false;		// 이름 형식체크
@@ -219,15 +223,17 @@
 	        /* 닉네임 유효성 검사 */
 	        if(nickname == ""){
 	            $('.final_nick_ck').css('display','block');
-	            nick_ck = false;
+	            nick_name_ck = false;
 	        }else{
 	            $('.final_nick_ck').css('display', 'none');
-	            nick_ck = true;
+	            nick_name_ck = true;
 	        }
 	        
 	        
 	        /* 최종 유효성 검사 */
-	        if(userid_ck&&id_ck&&userpwd_ck&&userpwd2_ck&&pwd_cor_ck&&name_ck&&bday_ck&&email_ck&&emailnum_ck&&nick_ck&&
+	        if(userid_ck&&id_ck&&userpwd_ck&&userpwd2_ck&&pwd_cor_ck&&name_ck&&bday_ck&&
+	        		email_ck&&mail_ck&&emailnum_ck&&
+	        		nick_name_ck&&nick_ck&&
 	        		id_warn_ck&&pwd_warn_ck&&name_warn_ck&&bday_warn_ck&&mail_warn_ck&&nick_warn_ck){
 	        	$("#join_form").attr("action", "${myctx}/join");
 				$("#join_form").submit();
@@ -274,6 +280,69 @@
 	    	$('.id_warn').css('display', 'block');
 	        id_warn_ck = false;
 	    } 
+	});// function 종료
+	
+	/* 닉네임 중복 검사 */
+	$('#nick_name').on("propertychange change keyup paste input", function() {
+		var nick_name = $('#nick_name').val();
+		var data = {
+			nick_name : nick_name
+		}
+
+		$.ajax({
+			type : "post",
+			url : "/userNickChk",
+			data : data,
+			success : function(result) {
+				// console.log("성공 여부" + result);
+				if (result != 'fail') {
+					$('.nick_ck_yes').css("display", "inline-block");
+					$('.nick_ck_no').css("display", "none");
+					nick_ck = true;
+				} else {
+					$('.nick_ck_no').css("display", "inline-block");
+					$('.nick_ck_yes').css("display", "none");
+					nick_ck = false;
+				}
+
+			}// success 종료
+		}); // ajax 종료
+
+		/* 닉네임 형식 체크 */
+		if (nickF_ck(nick_name)) {
+			$('.nick_warn').css('display', 'none');
+			nick_warn_ck = true;
+		} else {
+			$('.nick_warn').css('display', 'block');
+			nick_warn_ck = false;
+		}
+	});// function 종료
+	
+	/* 이메일 중복 검사 */
+	$('#email').on("propertychange change keyup paste input", function() {
+		var email = $('#email').val();
+		var data = {
+			email : email
+		}
+
+		$.ajax({
+			type : "post",
+			url : "/userEmailChk",
+			data : data,
+			success : function(result) {
+				// console.log("성공 여부" + result);
+				if (result != 'fail') {
+					$('.mail_ck_yes').css("display", "inline-block");
+					$('.mail_ck_no').css("display", "none");
+					mail_ck = true;
+				} else {
+					$('.mail_ck_no').css("display", "inline-block");
+					$('.mail_ck_yes').css("display", "none");
+					mail_ck = false;
+				}
+
+			}// success 종료
+		}); // ajax 종료
 	});// function 종료
 
 	/* 인증번호 이메일 전송 */
@@ -327,99 +396,86 @@
 	    }
 	    
 	});
-	
+
 	/* 비밀번호 확인 일치 유효성 검사 */
-	$('#userpwd2').on("propertychange change keyup paste input", function(){
+	$('#userpwd2').on("propertychange change keyup paste input", function() {
 		var pw = $('#userpwd').val();
-	    var pwck = $('#userpwd2').val();
-	    $('.final_pw2_ck').css('display', 'none');
-	    
-	    if(pw == pwck){
-	        $('.pw2_re_yes').css('display','block');
-	        $('.pw2_re_no').css('display','none');
-	        pwd_cor_ck = true;
-	    }else{
-	        $('.pw2_re_yes').css('display','none');
-	        $('.pw2_re_no').css('display','block');
-	        pwd_cor_ck = false;
-	    } 
+		var pwck = $('#userpwd2').val();
+		$('.final_pw2_ck').css('display', 'none');
+
+		if (pw == pwck) {
+			$('.pw2_re_yes').css('display', 'block');
+			$('.pw2_re_no').css('display', 'none');
+			pwd_cor_ck = true;
+		} else {
+			$('.pw2_re_yes').css('display', 'none');
+			$('.pw2_re_no').css('display', 'block');
+			pwd_cor_ck = false;
+		}
 	});
-	
+
 	/* 비밀번호 형식 체크 */
-	$('#userpwd').on("propertychange change keyup paste input", function(){
+	$('#userpwd').on("propertychange change keyup paste input", function() {
 		var pwd = $('#userpwd').val();
-		
-		if(pwdF_ck(pwd)){
-	        $('.pwd_warn').css('display', 'none');
-	        pwd_warn_ck = true;
-	    }else{
-	    	$('.pwd_warn').css('display', 'block');
-	    	pwd_warn_ck = false;
-	    }
+
+		if (pwdF_ck(pwd)) {
+			$('.pwd_warn').css('display', 'none');
+			pwd_warn_ck = true;
+		} else {
+			$('.pwd_warn').css('display', 'block');
+			pwd_warn_ck = false;
+		}
 	});
-	
+
 	/* 이름 형식 체크 */
-	$('#name').on("propertychange change keyup paste input", function(){
+	$('#name').on("propertychange change keyup paste input", function() {
 		var name = $('#name').val();
-		
-		if(nameF_ck(name)){
-	        $('.name_warn').css('display', 'none');
-	        name_warn_ck = true;
-	    }else{
-	    	$('.name_warn').css('display', 'block');
-	    	name_warn_ck = false;
-	    }
+
+		if (nameF_ck(name)) {
+			$('.name_warn').css('display', 'none');
+			name_warn_ck = true;
+		} else {
+			$('.name_warn').css('display', 'block');
+			name_warn_ck = false;
+		}
 	});
-	
+
 	/* 생년월일 형식 체크 */
-	$('#bday').on("propertychange change keyup paste input", function(){
+	$('#bday').on("propertychange change keyup paste input", function() {
 		var bday = $('#bday').val();
-		
-		if(bdayF_ck(bday)){
-	        $('.bday_warn').css('display', 'none');
-	        bday_warn_ck = true;
-	    }else{
-	    	$('.bday_warn').css('display', 'block');
-	    	bday_warn_ck = false;
-	    }
+
+		if (bdayF_ck(bday)) {
+			$('.bday_warn').css('display', 'none');
+			bday_warn_ck = true;
+		} else {
+			$('.bday_warn').css('display', 'block');
+			bday_warn_ck = false;
+		}
 	});
-	
-	/* 닉네임 형식 체크 */
-	$('#nick_name').on("propertychange change keyup paste input", function(){
-		var nick= $('#nick_name').val();
-		
-		if(nickF_ck(nick)){
-	        $('.nick_warn').css('display', 'none');
-	        nick_warn_ck = true;
-	    }else{
-	    	$('.nick_warn').css('display', 'block');
-	    	nick_warn_ck = false;
-	    }
-	});
-	
+
 	/* Form 형식 체크 */
-	function idF_ck(userid){
-		let pattern=/^([A-Za-z])[A-Za-z0-9_!]{3,7}$/;
+	function idF_ck(userid) {
+		let pattern = /^([A-Za-z])[A-Za-z0-9_!]{3,7}$/;
 		return pattern.test(userid);
 	}
-	function pwdF_ck(userpwd){
-		let pattern=/^[\w!\.]{4,8}$/;
+	function pwdF_ck(userpwd) {
+		let pattern = /^[\w!\.]{4,8}$/;
 		return pattern.test(userpwd);
 	}
-	function nameF_ck(name){
-		let pattern=/^[가-힣]{2,}$/;
+	function nameF_ck(name) {
+		let pattern = /^[가-힣]{2,}$/;
 		return pattern.test(name);
 	}
-	function bdayF_ck(bday){
-		let pattern=/^(19|20)[\d]{2}[-\/](0[1-9]|1[0-2])[-\/](0[1-9]|[12][0-9]|3[0-1])$/;
+	function bdayF_ck(bday) {
+		let pattern = /^(19|20)[\d]{2}[-\/](0[1-9]|1[0-2])[-\/](0[1-9]|[12][0-9]|3[0-1])$/;
 		return pattern.test(bday);
 	}
-	function mailF_ck(email){
-		let pattern=/^[\w-]+(\.[\w]+)*@([a-zA-Z]+\.)+[a-z]{2,3}$/;
+	function mailF_ck(email) {
+		let pattern = /^[\w-]+(\.[\w]+)*@([a-zA-Z]+\.)+[a-z]{2,3}$/;
 		return pattern.test(email);
 	}
-	function nickF_ck(nick_name){
-		let pattern=/^[가-힣a-zA-Z0-9]{0,11}$/
+	function nickF_ck(nick_name) {
+		let pattern = /^[가-힣a-zA-Z0-9]{0,11}$/
 		return pattern.test(nick_name);
 	}
 </script>

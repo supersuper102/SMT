@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-div, button, h2, span{
+div, button, h2, h3, span, ul, li, a{
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
@@ -105,4 +105,26 @@ div, button, h2, span{
 .pw2_re_no{
         color : red;
         display : none;    
-}  
+}
+
+/* 중복 닉네임 존재하지 않는경우 */
+.nick_ck_yes {
+	color: green;
+	display: none;
+}
+/* 중복 닉네임 존재하는 경우 */
+.nick_ck_no {
+	color: red;
+	display: none;
+}
+
+/* 중복 이메일 존재하지 않는경우 */
+.mail_ck_yes {
+	color: green;
+	display: none;
+}
+/* 중복 이메일 존재하는 경우 */
+.mail_ck_no {
+	color: red;
+	display: none;
+}
