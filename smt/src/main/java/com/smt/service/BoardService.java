@@ -8,6 +8,9 @@ import com.smt.model.BoardVO;
 
 public interface BoardService {
 
+	//회원번호로 닉네임 얻어오기
+	String getNickNameByMemberIdx(int idx);
+	
 	int insertBoard(BoardVO board);
 
 	// 페이지 처리 안하고 게시목록 가져오기

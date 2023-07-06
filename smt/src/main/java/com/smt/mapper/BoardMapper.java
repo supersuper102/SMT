@@ -6,7 +6,10 @@ import java.util.Map;
 import com.smt.model.BoardVO;
 
 public interface BoardMapper {
-
+	
+	//회원번호로 닉네임 얻어오기
+	String getNickNameByMemberIdx(int idx);
+	
 	int insertBoard(BoardVO board);
 
 	

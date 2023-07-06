@@ -34,6 +34,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.smt.model.BoardVO;
+import com.smt.model.MemberVO;
 import com.smt.service.BoardService;
 import com.smt.service.ReplyService;
 
@@ -51,7 +52,12 @@ public class BoardController {
 	private ReplyService replyService;
 	
 	@GetMapping("/write")
-	public String boardForm() {
+	public String boardForm(HttpSession session) {
+		
+		//로그인하지 않고 접근하면 로그인 페이지로 redirect
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		if(member == null) 
+			return "redirect:/login";
 		
 		return "board/boardWrite";
 		//WEB-INF/views/board/boardWrite.jsp
@@ -60,6 +66,14 @@ public class BoardController {
 	@PostMapping("/write")//boardWrite.jsp에서 submit했을 때 처리
 	public String boardWrite(Model m, @ModelAttribute BoardVO board,
 			@RequestParam("mfilename") MultipartFile mf, HttpSession session) {
+		
+		// 회원 정보 가져오기
+	    MemberVO member = (MemberVO) session.getAttribute("member");
+	    
+	    // 작성자 정보 설정
+	    board.setIdx(member.getIdx());
+	    log.info("idx="+member.getIdx());
+	    log.info("nick_name="+member.getNick_name());
 		
 		//1. 파일 업로드 처리
 		//[1] 업로드 디렉토리 절대경로 얻기(resources/board_upload)
@@ -99,7 +113,7 @@ public class BoardController {
 		
 		int n = this.boardService.insertBoard(board);
 		
-		String msg = (n>0)?"글쓰기 성공":"글쓰기 실패";
+		String msg = (n>0)?"글이 작성되었습니다.":"글 작성을 실패하였습니다.";
 		String loc = "list";
 		
 		m.addAttribute("msg", msg);
@@ -143,11 +157,17 @@ public class BoardController {
 		map.put("start", start);
 		map.put("end", end);
 		
-
 		
 		//2. 게시목록 가져오기
 		List<BoardVO> boardArr = this.boardService.selectBoardAll(map);
 		log.info("boardArr = " + boardArr);
+		
+		//회원번호(idx)로 닉네임 가져오기
+		for (BoardVO board : boardArr) {
+	        int writerIdx = board.getIdx();
+	        String nickName = boardService.getNickNameByMemberIdx(writerIdx);
+	        board.setNick_name(nickName);
+	    }
 		
 		m.addAttribute("boardArr", boardArr);
 		m.addAttribute("pageCount", pageCount);
@@ -160,16 +180,25 @@ public class BoardController {
 	}
 	
 	@GetMapping("/view/{bno}")
-	public String boardView(Model m, @PathVariable("bno") int bno) {
+	public String boardView(Model m, @PathVariable("bno") int bno, HttpSession session) {
+		
+		//로그인하지 않고 접근하면 로그인 페이지로 redirect
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		if(member == null) 
+			return "redirect:/login";
 		
 		//조회수 증가
 		this.boardService.updateReadnum(bno);
 				
 		//글번호로 해당 글 가져오기
 		BoardVO board = this.boardService.selectBoardByBno(bno);
-		m.addAttribute("board", board);
 		
-
+		//회원번호(idx)로 닉네임 가져오기
+		int writerIdx = board.getIdx();
+	    String nickName = boardService.getNickNameByMemberIdx(writerIdx);
+	    board.setNick_name(nickName);
+		
+		m.addAttribute("board", board);
 		
 		return "board/boardView";
 	}
@@ -179,6 +208,12 @@ public class BoardController {
 		
 		//글번호로 해당 글 가져오기
 		BoardVO board = this.boardService.selectBoardByBno(vo.getBno());
+		
+		//회원번호(idx)로 닉네임 가져오기
+		int writerIdx = board.getIdx();
+	    String nickName = boardService.getNickNameByMemberIdx(writerIdx);
+	    board.setNick_name(nickName);
+	    
 		m.addAttribute("board", board);
 		
 		return "board/boardEdit";
@@ -231,7 +266,7 @@ public class BoardController {
 		
 		int n = boardService.updateBoard(board);
 		
-		String msg = (n>0)?"글수정 성공":"글수정 실패";
+		String msg = (n>0)?"글이 수정되었습니다.":"글 수정을 실패하였습니다.";
 		String loc = "/board/list";
 		
 		m.addAttribute("msg", msg);
@@ -263,7 +298,7 @@ public class BoardController {
 			}
 		}
 		
-		String msg = (n>0)?"글삭제 성공":"글삭제 실패";
+		String msg = (n>0)?"글이 삭제되었습니다":"글 삭제를 실패하였습니다";
 		String loc = "list";
 		
 		m.addAttribute("msg", msg);

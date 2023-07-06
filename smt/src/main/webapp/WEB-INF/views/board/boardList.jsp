@@ -30,6 +30,16 @@ input {
 }
 </style>
 
+<script>
+function loginCheck(event){
+	if(${ member eq null }){
+		event.preventDefault();
+		alert("로그인 후 이용가능합니다. 로그인 페이지로 이동합니다");
+		window.location.href="/login";
+	}
+}
+</script>
+
 <!-- Banner -->
 <section id="banner">
 	<div class="content">
@@ -70,14 +80,14 @@ input {
 					<tr>
 						<td>${board.bno}</td>
 						<td style="max-width:300px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-						<a href="/board/view/${board.bno}" style="color:inherit; text-decoration:none; border-bottom: 0px;">${board.title}</a>
+						<a href="/board/view/${board.bno}" onclick="loginCheck(event)" style="color:inherit; text-decoration:none; border-bottom: 0px;">${board.title}</a>
 						<c:if test="${board.filesize>0}">
 						<span>
 							<img src="../resources/images/attach.png" style="width:20px; vertical-align:middle;">
 						</span>
 						</c:if>
 						</td>
-						<td>${board.idx}</td>
+						<td>${board.nick_name}</td>
 						<td>${board.wdate}</td>
 						<td>${board.readnum}</td>
 					</tr>
@@ -85,10 +95,10 @@ input {
 			</c:if>
 
 		</table>
-
+		
 		<ul class="actions" style="text-align: right">
-			<li><a href="/board/write" class="button special small"><span
-					style="font-size: 12pt; font-family: sans-serif;">글쓰기</span></a></li>
+			<li><a href="/board/write" class="button special small" onclick="loginCheck(event)">
+			<span style="font-size: 12pt; font-family: sans-serif;">글쓰기</span></a></li>
 		</ul>
 
 		<ul class="pagination" style="text-align:center; font-size:15pt">

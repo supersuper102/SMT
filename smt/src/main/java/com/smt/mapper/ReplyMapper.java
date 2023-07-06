@@ -5,7 +5,7 @@ import java.util.List;
 import com.smt.model.ReplyVO;
 
 public interface ReplyMapper {
-
+	
 	int insertReply(ReplyVO reply);//댓글 작성
 	
 	List<ReplyVO> selectReply(int bno);//댓글 목록
