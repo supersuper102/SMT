@@ -68,9 +68,9 @@ public class BoardServiceImpl implements BoardService {
 
 
 	@Override
-	public String getNickNameByMemberIdx(int idx) {
+	public BoardVO getInfoByMemberIdx(int idx) {
 		
-		return this.boardMapper.getNickNameByMemberIdx(idx);
+		return this.boardMapper.getInfoByMemberIdx(idx);
 	}
 
 

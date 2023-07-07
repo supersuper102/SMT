@@ -162,11 +162,12 @@ public class BoardController {
 		List<BoardVO> boardArr = this.boardService.selectBoardAll(map);
 		log.info("boardArr = " + boardArr);
 		
-		//회원번호(idx)로 닉네임 가져오기
+		//회원번호(idx)로 닉네임, mbti 가져오기
 		for (BoardVO board : boardArr) {
 	        int writerIdx = board.getIdx();
-	        String nickName = boardService.getNickNameByMemberIdx(writerIdx);
-	        board.setNick_name(nickName);
+	        BoardVO memberInfo = boardService.getInfoByMemberIdx(writerIdx);
+	        board.setNick_name(memberInfo.getNick_name());
+	        board.setMbti_type(memberInfo.getMbti_type());
 	    }
 		
 		m.addAttribute("boardArr", boardArr);
@@ -193,10 +194,11 @@ public class BoardController {
 		//글번호로 해당 글 가져오기
 		BoardVO board = this.boardService.selectBoardByBno(bno);
 		
-		//회원번호(idx)로 닉네임 가져오기
+		//회원번호(idx)로 닉네임, mbti 가져오기
 		int writerIdx = board.getIdx();
-	    String nickName = boardService.getNickNameByMemberIdx(writerIdx);
-	    board.setNick_name(nickName);
+		BoardVO memberInfo = boardService.getInfoByMemberIdx(writerIdx);
+        board.setNick_name(memberInfo.getNick_name());
+        board.setMbti_type(memberInfo.getMbti_type());
 		
 		m.addAttribute("board", board);
 		
@@ -209,10 +211,11 @@ public class BoardController {
 		//글번호로 해당 글 가져오기
 		BoardVO board = this.boardService.selectBoardByBno(vo.getBno());
 		
-		//회원번호(idx)로 닉네임 가져오기
+		//회원번호(idx)로 닉네임, mbti 가져오기
 		int writerIdx = board.getIdx();
-	    String nickName = boardService.getNickNameByMemberIdx(writerIdx);
-	    board.setNick_name(nickName);
+		BoardVO memberInfo = boardService.getInfoByMemberIdx(writerIdx);
+        board.setNick_name(memberInfo.getNick_name());
+        board.setMbti_type(memberInfo.getMbti_type());
 	    
 		m.addAttribute("board", board);
 		

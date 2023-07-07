@@ -54,6 +54,7 @@ function loginCheck(event){
 				<option value="t" ${findType=='t' ? 'selected' : ''}>제목</option>
 				<option value="c" ${findType=='c' ? 'selected' : ''}>내용</option>
 				<option value="w" ${findType=='w' ? 'selected' : ''}>작성자</option>
+				<option value="m" ${findType=='m' ? 'selected' : ''}>MBTI</option>
 			</select> <input type="text" name="findKeyword"  value="${findKeyword}"
 				style="width: 83%; height:120%; border: solid 1px #f56a6a; display:inline-block; font-size:15pt; padding:4pt 10pt">
 			<button class="button special icon fa-search small" style="text-align:center; width:1.5%; font-size:12pt; padding:0.5px 40px 0.5px 27px;" ></button>
@@ -87,7 +88,7 @@ function loginCheck(event){
 						</span>
 						</c:if>
 						</td>
-						<td>${board.nick_name}</td>
+						<td><span style="color:#f56a6a">${board.mbti_type}</span> ${board.nick_name}</td>
 						<td>${board.wdate}</td>
 						<td>${board.readnum}</td>
 					</tr>

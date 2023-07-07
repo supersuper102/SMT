@@ -49,7 +49,7 @@
 				<tr>
 					<td style="text-align:center"><b>작성자</b></td>
 					<td>
-					${member.nick_name}
+					<span style="color:#f56a6a">${member.mbti_type}</span> ${member.nick_name}
 					</td>
 				</tr>
 				<tr>

@@ -46,7 +46,7 @@
 				<tr>
 					<td style="text-align:center"><b>작성자</b></td>
 					<td>
-					${board.nick_name}
+					<span style="color:#f56a6a">${board.mbti_type}</span> ${board.nick_name}
 					</td>
 				</tr>
 				<tr>

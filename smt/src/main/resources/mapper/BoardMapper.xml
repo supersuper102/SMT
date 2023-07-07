@@ -60,6 +60,9 @@
 					<!-- idx like '%'||#{findKeyword}||'%' -->
 					idx IN (SELECT idx FROM member WHERE nick_name LIKE '%'||#{findKeyword}||'%')
 				</if>
+				<if test='findType=="m"'> <!-- MBTI -->
+					idx IN (SELECT idx FROM member WHERE mbti_type LIKE '%'||#{findKeyword}||'%')
+				</if>
 			</where>
 		</if>
 	</sql>
@@ -83,8 +86,8 @@
 		]]>
 	</select>
 	
-	<!-- 회원번호(idx)로 닉네임 가져오기 -->
-	<select id="getNickNameByMemberIdx" parameterType="int" resultType="String">
-    	SELECT nick_name FROM member WHERE idx = #{idx}
+	<!-- 회원번호(idx)로 닉네임, mbti 가져오기 -->
+	<select id="getInfoByMemberIdx" parameterType="int" resultType="Board">
+    	SELECT nick_name, mbti_type FROM member WHERE idx = #{idx}
 	</select>
 </mapper>
