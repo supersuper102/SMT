@@ -2,6 +2,7 @@
 
 div, button, h2, h3, span, ul, li, a{
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-decoration:none;
 }
 
 /* 중복아이디 존재하지 않는경우 */
