@@ -43,18 +43,17 @@ public class UserController {
 		log.info("join 진입");
 		/* System.out.println("member=="+member.getUserid()); */
 
-		String exPwd = "";					// 인코딩 전 비밀번호
-        String encodePwd = "";				// 인코딩 후 비밀번호
-        
-        exPwd = member.getUserpwd();            // 비밀번호 데이터 얻음
-        encodePwd = pwEncoder.encode(exPwd);	// 비밀번호 인코딩
-        member.setUserpwd(encodePwd);			// 인코딩된 비밀번호 member객체에 다시 저장
-        
-        /* 회원가입 쿼리 실행 */
-        memberService.memberJoin(member);
-        
-		return "index";
+		String exPwd = ""; // 인코딩 전 비밀번호
+		String encodePwd = ""; // 인코딩 후 비밀번호
 
+		exPwd = member.getUserpwd(); // 비밀번호 데이터 얻음
+		encodePwd = pwEncoder.encode(exPwd); // 비밀번호 인코딩
+		member.setUserpwd(encodePwd); // 인코딩된 비밀번호 member객체에 다시 저장
+
+		/* 회원가입 쿼리 실행 */
+		memberService.memberJoin(member);
+
+		return "index";
 	}
 	
 	// 아이디 중복 검사

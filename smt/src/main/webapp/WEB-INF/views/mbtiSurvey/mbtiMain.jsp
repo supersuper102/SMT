@@ -25,7 +25,7 @@
 				<p id="mbti-title">SAY MY TYPE!<br>MBTI테스트</p>
 			</div>
 			<div id="mbti-content">
-				<p>해당 검사는 본 사이트에서 자체 개발한 무료 검사이며<br>각 문항마다 평소와 가까운 답을 선택하면 됩니다.<br>검사를 시작하시려면 시작 버튼을 눌러주세요.				
+				<p>원활한 사이트 이용을 위해 mbti 검사를 진행해주세요! <br>해당 검사는 본 사이트에서 자체 개발한 무료 검사이며<br>각 문항마다 평소와 가까운 답을 선택하면 됩니다.<br>검사를 시작하시려면 시작 버튼을 눌러주세요.				
 			</div>
 			<div>
 				<button id="mbti-start-button">테스트 시작!</button>
