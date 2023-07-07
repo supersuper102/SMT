@@ -9,8 +9,8 @@
 <body>
 <%
     String url = "jdbc:oracle:thin:@localhost:1521:xe";
-    String user = "smt"; 
-    String password = "tiger";
+    String user = ""; 
+    String password = "";
 
     Connection conn = null;
     Statement stmt = null;
