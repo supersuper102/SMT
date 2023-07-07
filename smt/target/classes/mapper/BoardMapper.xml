@@ -57,9 +57,9 @@
 					content like '%'||#{findKeyword}||'%'
 				</if>
 				<if test='findType=="w"'> <!-- 작성자 -->
-					idx like '%'||#{findKeyword}||'%'
+					<!-- idx like '%'||#{findKeyword}||'%' -->
+					idx IN (SELECT idx FROM member WHERE nick_name LIKE '%'||#{findKeyword}||'%')
 				</if>
-				
 			</where>
 		</if>
 	</sql>
@@ -81,5 +81,10 @@
 		<![CDATA[
 		where rn > #{start} and rn < #{end}
 		]]>
+	</select>
+	
+	<!-- 회원번호(idx)로 닉네임 가져오기 -->
+	<select id="getNickNameByMemberIdx" parameterType="int" resultType="String">
+    	SELECT nick_name FROM member WHERE idx = #{idx}
 	</select>
 </mapper>
