@@ -25,4 +25,6 @@ public interface MemberMapper {
     /*비밀번호 찾기*/
     public int pwd_find(MemberVO findmember);
     public void pwd_update(MemberVO findmember);
+
+
 }

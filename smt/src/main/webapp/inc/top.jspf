@@ -48,7 +48,7 @@
 						<div class="login_success_area">
                         <span>
                         	<a href="${myctx}/board/list" class="button special small" id="mbti_go_board">${member.mbti_type}</a>
-                        	<a href="#">${member.nick_name}</a>님 환영합니다.
+                        	<a href="${myctx}/mypage">${member.nick_name}</a>님 환영합니다.
                         </span>
                         <%-- <span>${member.pimage}</span> --%>
                     </div>
