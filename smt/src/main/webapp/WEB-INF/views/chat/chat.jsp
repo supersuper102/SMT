@@ -69,22 +69,33 @@
         }
         .chat-input .input-group {
             display: flex;
-            background-color: #AEC6CF;
+            
         }
-        .chat-input .input-group input {
-            flex-grow: 1;
-        }
+
         .title {
             font-size: 30px;
             text-align: center;
             margin: 20px 0;
         }
+    	.chat-log::-webkit-scrollbar {
+        display: none;
+   		 }
+ 	    .btn-primary.send-button {
+        	background-color: transparent;  
+        	border-color: #F56A6A;  
+        	color: #F56A6A; 
+        	border: 2px #F56A6A;
+    	}
+    
         #login_join {
             display: none;
         }
         #header {
             display: none;
         }
+        #chats {
+   		 border: 2px solid #F56A6A;
+		}
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">  <!-- 구글 폰트 링크 추가 -->
 </head>
