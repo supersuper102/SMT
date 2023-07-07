@@ -35,13 +35,13 @@
 					<tr>
 						<td style="width:10%; text-align:center; font-size:20px"><b>작성자</b></td>
 						<td style="width:70%; font-size:14pt">
-						${board.nick_name}
+						<span style="color:#f56a6a">${board.mbti_type}</span> ${board.nick_name}
 						</td>
 						<td style="width:10%; font-size:12pt">${board.wdate}</td>
 						<td style="width:10%; font-size:12pt">조회수 ${board.readnum}</td>
 					</tr>
 					<tr>
-						<td colspan="4" style="font-size:14pt; padding: 15pt 15pt; color:black;">
+						<td colspan="4" style="font-size:14pt; padding: 15pt 15pt; color:black;  max-width: 300px; overflow-wrap: break-word;">
 						${board.content}
 						
 						<!-- 파일 확장자 검사를 위해 모두 소문자로 바꾸자 -->
@@ -87,7 +87,7 @@
 		<!-- 댓글 작성을 위한 form----------------------------------------- -->
 		<form name="rf" id="rf">
 			<input type="hidden" name="bno" id="bno" value="${board.bno}">
-			<b style="font-size:15pt; color:#f56a6a; margin-left:10px;">${member.nick_name}</b>
+			<span style="font-size:15pt; margin-left:10px;"><b style="color:#f56a6a;">${member.mbti_type}</b> <b>${member.nick_name}</b></span>
 			<textarea name="replycontent" id="replycontent" rows="5" cols="10" style="margin-top:8px" placeholder="댓글을 입력하세요"></textarea>
 			<button class="button special small" onclick="replyInsert()" style="margin-top:10px; float:right;">
 			<span style="font-size:10pt; font-family:sans-serif">등록</span>
@@ -168,15 +168,16 @@
 		let str= '<table>';
 		$.each(res, (i, reply)=>{
 			str+= '<tr id="replyText'+reply.rno+'">';
-			str+= '<td style="width:10%; text-align:center; color:black;">';
+			str+= '<td style="width:10%; color:black;">';
+			str+= '<span style="color:#f56a6a;">'+reply.mbti_type+'</span> ' ;
 			str+= reply.nick_name;
 			str+= '</td>';
 			
-			str+= '<td width="65%; color:black;">';
+			str+= '<td style="width=65%; color:black; max-width: 500px; overflow-wrap: break-word;">';
 			str+= reply.replycontent;
 			str+= '</td>';
 			
-			str+= '<td width="15%">';
+			str+= '<td style="width=15%; text-align:center">';
 			str+= reply.wdate;
 			str+= '</td>';
 			
@@ -193,8 +194,11 @@
 			//댓글 수정 폼
 			str+= '<tr id="editForm'+reply.rno+'" style="display: none;">';
 			str+= '<td colspan="4">';
+
 			str+= '<form name="ref" id="ref">';
-			str+= '<textarea name="replycontent" id="replyEditcontent'+reply.rno+'" rows="2" cols="10">';
+ 			str+= '<span style="color:#f56a6a; margin-left:10px">'+reply.mbti_type+'</span> ' ;
+			str+= reply.nick_name;
+			str+= '<textarea name="replycontent" id="replyEditcontent'+reply.rno+'" rows="2" cols="10" style="margin-top:8px">';
 			str+= reply.replycontent;
 			str+= '</textarea>';
 			str+= '<button class="button special small" style="margin-top:10px; float:right;" onclick="submitEditReply(\''+reply.rno+'\')">';

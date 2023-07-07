@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.smt.model.BoardVO;
 import com.smt.model.MemberVO;
 import com.smt.model.ReplyVO;
 import com.smt.service.BoardService;
@@ -57,11 +58,12 @@ public class ReplyController {
 		
 		List<ReplyVO> arr = this.replyService.selectReply(bno);
 		
-		//회원번호(idx)로 닉네임 가져오기
+		//회원번호(idx)로 닉네임, mbti 가져오기
 		for (ReplyVO reply : arr) {
-	        int writerIdx = reply.getIdx();
-	        String nickName = boardService.getNickNameByMemberIdx(writerIdx);
-	        reply.setNick_name(nickName);
+			int writerIdx = reply.getIdx();
+			BoardVO memberInfo = boardService.getInfoByMemberIdx(writerIdx);
+			reply.setNick_name(memberInfo.getNick_name());
+			reply.setMbti_type(memberInfo.getMbti_type());
 		}
 
 		log.info("arr="+arr);
@@ -87,11 +89,6 @@ public class ReplyController {
 		log.info("replyEdit="+reply);
 		
 		int n = this.replyService.updateReply(reply);
-		
-		//회원번호(idx)로 닉네임 가져오기
-		int writerIdx = reply.getIdx();
-		String nickName = boardService.getNickNameByMemberIdx(writerIdx);
-		reply.setNick_name(nickName);
 		
 		String str = (n>0)?"OK":"Fail";
 		ModelMap map = new ModelMap("result", str);

@@ -7,9 +7,9 @@ import com.smt.model.BoardVO;
 
 
 public interface BoardService {
-
-	//회원번호로 닉네임 얻어오기
-	String getNickNameByMemberIdx(int idx);
+	
+	//회원번호로 닉네임, mbti 얻어오기
+	BoardVO getInfoByMemberIdx(int idx);
 	
 	int insertBoard(BoardVO board);
 
