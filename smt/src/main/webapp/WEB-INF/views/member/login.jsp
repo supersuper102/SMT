@@ -40,7 +40,7 @@
 		</div>
 		
 		
-		<div style="color: #f56a6a; text-align: center; font-weight: bold; text-decoration-line: none;">
+		<div style="color: #f56a6a; text-align: center; font-weight: bold; border-bottom: 0px;;">
 			<a href="${myctx}/id_find">아이디 찾기</a>|
 			<a href="${myctx}/pwd_find">비밀번호 찾기</a>|
 			<a href="${myctx}/join">회원 가입</a>

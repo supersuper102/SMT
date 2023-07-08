@@ -20,4 +20,5 @@ public class BoardVO {
 	private String old_filename;//예전에 첨부한 파일명
 	
 	private String nick_name;
+	private String mbti_type;
 }

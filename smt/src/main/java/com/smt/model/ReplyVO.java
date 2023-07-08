@@ -19,4 +19,5 @@ public class ReplyVO {
 	private int hit;//추천수
 	
 	private String nick_name;
+	private String mbti_type;
 }
