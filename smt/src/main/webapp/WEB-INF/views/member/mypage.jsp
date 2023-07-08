@@ -5,7 +5,9 @@
 	<h1 style="color: #f56a6a; text-align: center;">My Page</h1>
 	<div class="box" style="padding: 20px;">
 		<div class="box" style="text-align: center;">
-			<h1>🍊</h1>
+			<span>
+				<img alt="hi" src="/resources/images/SMTLOGO.png">
+			</span>
 		</div>
 		<div>
 			<h2 style="text-align: center;">${member.mbti_type} ${member.name}님 정보</h2>

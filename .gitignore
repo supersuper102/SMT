@@ -125,3 +125,4 @@ $RECYCLE.BIN/
 /target/
 */target/**
 pom.properties
+MANIFEST.MF
