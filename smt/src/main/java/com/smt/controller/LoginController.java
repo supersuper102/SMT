@@ -228,10 +228,9 @@ public class LoginController {
 	@RequestMapping(value = "/mypage")
 	public String mypage(HttpServletRequest request,Model model, HttpSession session){
 		MemberVO member = (MemberVO) session.getAttribute("member");
-		
-		
-		
 		return "/member/mypage";
 	}
+	
+	/*회원 정보 수정*/
     
 }
