@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.smt.mapper.MemberMapper;
+import com.smt.model.MbtiVO;
 import com.smt.model.MemberVO;
 
 @Service
@@ -57,14 +58,21 @@ public class MemberServiceImpl implements MemberService{
     
     /*비밀번호 찾기*/
     @Override
-    public int pwd_find(MemberVO findmember) {
+    public int pwd_find(MemberVO findmember) throws Exception{
     	
     	return membermapper.pwd_find(findmember);
     }
     
     @Override
-    public void pwd_update(MemberVO findmember) {
+    public void pwd_update(MemberVO findmember) throws Exception{
     	
     	membermapper.pwd_update(findmember);
+    }
+    
+    /*회원 정보 수정*/
+    @Override
+    public int member_modify_go(MemberVO member) throws Exception{
+    	
+    	return membermapper.member_modify_go(member);
     }
 }

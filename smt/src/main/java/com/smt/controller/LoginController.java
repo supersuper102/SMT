@@ -1,7 +1,9 @@
 package com.smt.controller;
 
+import java.io.File;
 import java.util.Random;
 
+import javax.annotation.Resource;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -14,16 +16,20 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.smt.model.BoardVO;
 import com.smt.model.MemberVO;
+import com.smt.service.BoardService;
 import com.smt.service.MemberService;
+import com.smt.service.ReplyService;
 
 import lombok.extern.log4j.Log4j;
 
@@ -39,6 +45,12 @@ public class LoginController {
 	
 	@Autowired
 	private JavaMailSender mailSender;
+	
+	@Resource(name="boardService")
+	private BoardService boardService;
+	
+	@Resource(name="replyService")
+	private ReplyService replyService;
 	
 	@GetMapping("/login")
 	public String loginForm() {
@@ -226,11 +238,31 @@ public class LoginController {
 	
 	/* 마이페이지 이동 */
 	@RequestMapping(value = "/mypage")
-	public String mypage(HttpServletRequest request,Model model, HttpSession session){
+	public String mypage(HttpSession session){
 		MemberVO member = (MemberVO) session.getAttribute("member");
 		return "/member/mypage";
 	}
 	
-	/*회원 정보 수정*/
-    
+	/*회원정보 수정 페이지*/
+	@RequestMapping(value="/member_modify")
+	public String member_modify_view() throws Exception{
+		
+		return "member/member_modify";
+	}
+	
+	/* 마이페이지 이동 */
+	@RequestMapping(value = "/member_modify_go")
+	public String member_modify(HttpSession session, RedirectAttributes rttr, MemberVO member, Model model) throws Exception{
+		//임시 비밀번호 생성
+		String newPwd = member.getUserpwd();
+		String enPwd = pwEncoder.encode(newPwd);
+		member.setUserpwd(enPwd);
+	
+		int result=memberService.member_modify_go(member);
+		log.info("member : "+result);
+		
+		session.invalidate();
+
+		return "/index";
+	}
 }

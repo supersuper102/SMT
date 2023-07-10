@@ -30,7 +30,7 @@
 
 	<!-- 로그인 -->
 	<select id="memberLogin" resultType="com.smt.model.MemberVO">
-		select idx, userid, userpwd, name, email, nick_name, mbti_type, pimage, indate from member where
+		select idx, userid, userpwd, name, bday, email, nick_name, mbti_type, pimage, indate from member where
 		userid= #{userid}
 
 		<!-- select userid, nick_name, mbti_type, pimage from member where
@@ -55,9 +55,9 @@
 	</update>
 	
 	<!-- 회원정보 수정 -->
-	<update id="update_mypage">
-		update member 
-		set userpwd=#{userpwd}, nick_name=#{nick_name}, mbti_type=#{mbti_type} 
+	<update id="member_modify_go">
+		update member set userid=#{userid}, userpwd=#{userpwd}, name=#{name}, bday=#{bday},
+		email=#{email}, nick_name=#{nick_name}, mbti_type=#{mbti_type}
 		where userid=#{userid}
 	</update>
 </mapper>

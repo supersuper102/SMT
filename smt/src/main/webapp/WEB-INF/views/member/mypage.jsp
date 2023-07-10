@@ -53,24 +53,9 @@
 			</tr>
 		</table>
 
-		<ul class="actions" style="text-align: center; width: 100%;">
-			<li style="width: 30%">
-				<a href="#" class="button fit">
-					<span style="font-size: 10pt;">작성글 목록</span>
-				</a>
-			</li>
-			<li style="width: 30%">
-				<a href="#" class="button fit">
+				<a href="${myctx}/member_modify" class="button fit">
 					<span style="font-size: 10pt;">회원정보 수정</span>
 				</a>
-			</li>
-			<li style="width: 30%">
-				<a href="#" class="button fit">
-					<span style="font-size: 10pt;">회원 탈퇴</span>
-				</a>
-			</li>
-			<li></li>
-		</ul>
 	</div>
 	
 	

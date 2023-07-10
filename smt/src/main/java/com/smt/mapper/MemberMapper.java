@@ -1,5 +1,6 @@
 package com.smt.mapper;
 
+import com.smt.model.MbtiVO;
 import com.smt.model.MemberVO;
 
 public interface MemberMapper {
@@ -25,6 +26,7 @@ public interface MemberMapper {
     /*비밀번호 찾기*/
     public int pwd_find(MemberVO findmember);
     public void pwd_update(MemberVO findmember);
-
-
+    
+    /*회원정보 수정*/
+    public int member_modify_go(MemberVO member);
 }
