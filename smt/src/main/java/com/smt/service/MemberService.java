@@ -1,5 +1,6 @@
 package com.smt.service;
 
+import com.smt.model.MbtiVO;
 import com.smt.model.MemberVO;
 
 public interface MemberService {
@@ -23,6 +24,9 @@ public interface MemberService {
     public MemberVO id_find(MemberVO findmember) throws Exception;
     
     /*비밀번호 찾기*/
-    public int pwd_find(MemberVO findmember);
-    public void pwd_update(MemberVO findmember);
+    public int pwd_find(MemberVO findmember) throws Exception;
+    public void pwd_update(MemberVO findmember) throws Exception;
+
+    /*회원 정보 수정*/
+    public int member_modify_go(MemberVO member) throws Exception;
 }

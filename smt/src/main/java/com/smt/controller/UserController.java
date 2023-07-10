@@ -40,7 +40,7 @@ public class UserController {
 	@RequestMapping(value = "/join", method = RequestMethod.POST)
 	public String joinPOST(MemberVO member) throws Exception {
 
-		log.info("join 진입");
+		//log.info("join 진입");
 		/* System.out.println("member=="+member.getUserid()); */
 
 		String exPwd = ""; // 인코딩 전 비밀번호
