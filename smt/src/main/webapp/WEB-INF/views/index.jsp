@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*, java.util.ArrayList" %>
 <!DOCTYPE html>
 <html>
@@ -45,20 +45,39 @@
 </script>
 
 <section id="banner">
-    <div class="content">
-        <header>
-            <h1>
-                Hi, I’m Editorial<br /> by HTML5 UP
-            </h1>
-            <p>으으으? 커뮤니티 입니다.</p>
-        </header>
+    <div class="content" style="display: flex; justify-content: center; align-items: center; gap: 300px;">
 
-        
-        <div style="width: 400px; height: 400px;">
-            <canvas id="mbtiChart"></canvas>
+
+
+
+        <!-- Left content: Header and Canvas -->
+        <div style="width: 400px;  height: 80vh; text-align: center;">
+            <header>
+                <h1 style="font-family: Verdana, Geneva, Tahoma, sans-serif;">SMT<br /></h1>
+                <p style="font-family: Verdana, Geneva, Tahoma, sans-serif;">MBTI와 관련된 이야기를 공유하고 소통할 수 있는 커뮤니티 입니다.</p>
+
+            </header>
+
+            <div style="width: 400px; height: 400px;">
+                <canvas id="mbtiChart"></canvas>
+            </div>
         </div>
 
-        <ul class="actions"></ul>
+        <!-- Right content: MBTI Test -->
+        <div id="wrap" style="width: 400px;  height: 68vh; text-align: center;">
+            <div class="survey-box">
+                <div id="mbti-title-box">
+                    <h2 id="mbti-title">SAY MBTI TYPE!</h2><h2>MBTI테스트</h2>
+                </div>
+                <div id="mbti-content">
+                    <p>원활한 사이트 이용을 위해 mbti 검사를 진행해주세요! <br>해당 검사는 본 사이트에서 자체 개발한 무료 검사이며<br>각 문항마다 평소와 가까운 답을 선택하면 됩니다.<br>검사를 시작하시려면 시작 버튼을 눌러주세요.</p>
+                </div>
+                <div>
+                    <button id="mbti-start-button" onclick="location.href='/mbtiSurvey'">테스트 시작!</button>
+
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 

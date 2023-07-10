@@ -38,18 +38,17 @@
             font-weight: bold;
             margin-left: 1%; 
         }
-        .user-message {
-            text-align: right; 
-            color: #FFFFFF;
-            background-color: #F56A6A;
-            font-size: 24px;
-            border-radius: 15px;
-            padding: 10px;
-            margin-left: 80%; 
-            max-width: 70%;
-            display: inline-block; 
-            min-width: 20%;
-        }
+		.user-message {
+		    text-align: right;
+		    color: #FFFFFF;
+		    background-color: #F56A6A;
+		    font-size: 24px;
+		    border-radius: 15px;
+		    padding: 10px;
+		    margin-left: 75%;
+		    display: block;
+		    min-width: auto;
+		}
         .gpt-message {
             text-align: left;
             color: #F56A6A;
@@ -96,6 +95,9 @@
         #chats {
    		 border: 2px solid #F56A6A;
 		}
+		#msg2 {
+  		order: 2px solid #F56A6A;
+		}
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" rel="stylesheet">  <!-- 구글 폰트 링크 추가 -->
 </head>
@@ -110,29 +112,56 @@
             <input type="text" name="chats" id="chats" class="form-control">
             <button type="button" onclick="sendChat()" class="btn btn-primary send-button">전송</button>
         </div>
+        <label for="mbti" class="mbti" id="msg2" style="font-size: 24px;">MBTI 유형 선택</label>
+        <div class="input-group">
+            <select id="mbti" class="form-control">
+				<option value="">선택하지 않음</option>
+				<option value="ISTJ">ISTJ</option>
+				<option value="ISFJ">ISFJ</option>
+				<option value="INFJ">INFJ</option>
+				<option value="INTJ">INTJ</option>
+				<option value="ISTP">ISTP</option>
+				<option value="ISFP">ISFP</option>
+				<option value="INFP">INFP</option>
+				<option value="INTP">INTP</option>
+				<option value="ESTP">ESTP</option>
+				<option value="ESFP">ESFP</option>
+				<option value="ENFP">ENFP</option>
+				<option value="ENTP">ENTP</option>
+				<option value="ESTJ">ESTJ</option>
+				<option value="ESFJ">ESFJ</option>
+				<option value="ENFJ">ENFJ</option>
+				<option value="ENTJ">ENTJ</option>
+
+                <!-- 여기에 다른 MBTI 유형을 추가하세요 -->
+            </select>
+        </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
         const sendChat = function () {
             let userMessage = $('#chats').val(); 
+            let userMBTI = $('#mbti').val(); 
 
-            if(userMessage.trim() === "") return; 
+            if(userMessage.trim() === "") return;
 
-            $('#chat-log').append('<div class="chat-message"><div class="user-message">' + userMessage + '</div><div class="user-name">${member.nick_name}</div></div>'); 
+            $('#chat-log').append('<div class="chat-message"><div class="user-message">' + userMessage + '</div><div class="user-name">${member.nick_name}</div></div>');
 
             $.ajax({
                 type: 'POST',
                 url: '/chat/chat',
-                data: JSON.stringify({ userMessage: userMessage }), 
+                data: JSON.stringify({
+                    userMessage: userMessage,
+                    userMBTI: userMBTI  // MBTI 유형 추가
+                }),
                 contentType: 'application/json; charset=utf-8',
-                dataType: 'text', 
+                dataType: 'text',
                 cache: false,
                 success: function (response) {
-                    $('#chat-log').append('<div class="chat-message"><div class="gpt-message">' + response + '</div><div class="gpt-name">ChatGPT</div></div>'); 
-                    $('#chats').val(''); 
-                    // 새로운 메시지가 추가될 때마다 스크롤을 최하단으로 이동
+                    $('#chat-log').append('<div class="chat-message"><div class="gpt-message">' + response + '</div><div class="gpt-name">ChatGPT</div></div>');
+                    $('#chats').val('');
                     $('#chat-log').scrollTop($('#chat-log')[0].scrollHeight);
                 },
                 error: function (error) {
