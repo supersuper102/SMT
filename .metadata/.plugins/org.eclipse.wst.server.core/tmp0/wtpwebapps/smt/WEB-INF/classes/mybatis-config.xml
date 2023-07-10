@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	
+	<!-- typeAlias 타입 별칭 설정 ============================== -->
+	<typeAliases>
+		<typeAlias type="com.smt.model.BoardVO" alias="Board"/>
+		<typeAlias type="com.smt.model.ReplyVO" alias="Reply"/>
+		<typeAlias type="com.smt.model.MemberVO" alias="Member"/>
+		
+	</typeAliases>
+	
+	<!-- mapper 정의 ======================================== -->
+	<mappers>
+		<mapper resource="mapper/BoardMapper.xml" />
+		<mapper resource="mapper/ReplyMapper.xml" />
+		<mapper resource="mapper/MemberMapper.xml"/>
+	</mappers>
+</configuration>

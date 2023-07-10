@@ -1,0 +1,13 @@
+package com.smt.service;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public class ChatService {
+    public String getAnswerFromChatGPT(String message) {
+        // ChatGPT와 통신하여 답변을 받아오는 로직을 구현합니다.
+        // ChatGPT API를 호출하고 답변을 반환합니다.
+        // 예시로는 Main 클래스의 chatGPT 메서드를 사용했습니다.
+        return Main.chatGPT(message);
+    }
+}

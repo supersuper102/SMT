@@ -1,0 +1,5 @@
+package com.smt.model;
+
+public class ChatMessage {
+
+}

@@ -1,0 +1,131 @@
+@charset "UTF-8";
+
+div, button, h2, h3, span, ul, li, a{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-decoration:none;
+}
+
+/* 중복아이디 존재하지 않는경우 */
+.id_ck_yes {
+	color: green;
+	display: none;
+}
+/* 중복아이디 존재하는 경우 */
+.id_ck_no {
+	color: red;
+	display: none;
+}
+
+/* 메일 체크 */
+#mail_ck_false{
+    background-color:#ebebe4;
+}
+ 
+#mail_ck_true{
+    background-color:white;
+}
+
+/* 메일 인증 번호 체크*/
+.correct{
+    color : green;
+}
+.incorrect{
+    color : red;
+}
+
+/* 로그인 실패시 경고글 */
+.login_warn{
+    text-align: center;
+    color : red;
+}
+
+/* 로그인 성공 영역 */
+
+.login_success_area{
+    width: 80%;
+    text-align: right;
+}
+
+.login_success_area>span{
+    display : block;
+    font-weight:bold;
+    color: #f56a6a;
+}
+
+#mbti_go_board{
+	text-align: center;
+}
+
+/* 유효성 검사 문구 */
+ 
+.final_id_ck{
+    display: none;
+}
+.final_pw_ck{
+    display: none;
+}
+.final_pw2_ck{
+    display: none;
+}
+.final_name_ck{
+    display: none;
+}
+.final_bday_ck{
+    display: none;
+}
+.final_email_ck{
+    display: none;
+}
+.final_nick_ck{
+    display: none;
+}
+.id_warn{
+	display: none;
+}
+.pwd_warn{
+	display: none;
+}
+.name_warn{
+	display: none;
+}
+.bday_warn{
+	display: none;
+}
+.mail_warn{
+	display: none;
+}
+.nick_warn{
+	display: none;
+}
+
+/* 비밀번호 확인 일치 유효성검사 */
+.pw2_re_yes{
+        color : green;
+        display : none;    
+}
+.pw2_re_no{
+        color : red;
+        display : none;    
+}
+
+/* 중복 닉네임 존재하지 않는경우 */
+.nick_ck_yes {
+	color: green;
+	display: none;
+}
+/* 중복 닉네임 존재하는 경우 */
+.nick_ck_no {
+	color: red;
+	display: none;
+}
+
+/* 중복 이메일 존재하지 않는경우 */
+.mail_ck_yes {
+	color: green;
+	display: none;
+}
+/* 중복 이메일 존재하는 경우 */
+.mail_ck_no {
+	color: red;
+	display: none;
+}

@@ -1,0 +1,99 @@
+package com.smt.controller;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Maintest {
+    private static final int MAX_INPUT_LENGTH = 300;
+    private static final int MAX_RESPONSE_LENGTH = 300;
+    private static final double TEMPERATURE = 0.7;
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("채팅을 시작합니다. 종료하려면 '종료'를 입력하세요.");
+
+        List<String> chatHistory = new ArrayList<>();
+
+        while (true) {
+            System.out.print("사용자: ");
+            String userMessage = scanner.nextLine();
+
+            if (userMessage.equalsIgnoreCase("종료")) {
+                System.out.println("채팅을 종료합니다.");
+                break;
+            }
+
+            String limitedUserMessage = userMessage.substring(0, Math.min(userMessage.length(), MAX_INPUT_LENGTH));
+
+            chatHistory.add(limitedUserMessage);
+
+            String response = chatGPT(chatHistory);
+            String limitedResponse = response.substring(0, Math.min(response.length(), MAX_RESPONSE_LENGTH));
+            System.out.println("ChatGPT: " + limitedResponse);
+        }
+
+        scanner.close();
+    }
+
+    public static String chatGPT(List<String> chatHistory) {
+        String url = "https://api.openai.com/v1/chat/completions";
+        String apiKey = "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";
+        String model = "gpt-3.5-turbo";
+
+        try {
+            URL obj = new URL(url);
+            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+            con.setRequestMethod("POST");
+            con.setRequestProperty("Authorization", "Bearer " + apiKey);
+            con.setRequestProperty("Content-Type", "application/json");
+
+            StringBuilder messageBuilder = new StringBuilder();
+
+            for (String message : chatHistory) {
+                messageBuilder.append("{\"role\": \"system\", \"content\": \"You:\"},");
+                messageBuilder.append("{\"role\": \"user\", \"content\": \"" + message + "\"},");
+            }
+
+            messageBuilder.append("{\"role\": \"system\", \"content\": \"You:\"}");
+            String messages = messageBuilder.toString();
+
+            String body = "{\"model\": \"" + model + "\", \"messages\": [" + messages + "], \"temperature\": " + TEMPERATURE + ", \"max_tokens\": 50}"; // max_tokens 값으로 답변의 길이를 제한
+            con.setDoOutput(true);
+            OutputStreamWriter writer = new OutputStreamWriter(con.getOutputStream());
+            writer.write(body);
+            writer.flush();
+            writer.close();
+
+            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            String inputLine;
+            StringBuilder response = new StringBuilder();
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+            }
+            in.close();
+
+            String extractedResponse = extractContentFromResponse(response.toString());
+            String cleanedResponse = extractedResponse.replace("\\n\\n", "");
+
+            return cleanedResponse;
+       
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static String extractContentFromResponse(String response) {
+        int startMarker = response.indexOf("content") + 11;
+        int endMarker = response.indexOf("\"", startMarker);
+        return response.substring(startMarker, endMarker);
+    }
+}
+

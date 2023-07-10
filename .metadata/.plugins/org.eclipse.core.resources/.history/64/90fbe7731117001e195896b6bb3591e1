@@ -1,0 +1,97 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
+<style>
+#tth {
+	font-size: 13pt;
+	font-weight: bold;
+	background-color: rgb(253, 227, 227);
+	text-align: center;
+}
+
+tr:not(:first-child) {
+	font-size: 12pt;
+	color: black;
+	text-align: center;
+}
+
+tr:not(:first-child) td:nth-child(2) {
+	text-align: left;
+}
+
+#lbtn {
+	text-align: right;
+	font-size: 15pt;
+}
+
+input {
+	border: solid 1px #f56a6a;
+}
+
+#login_join {
+	display: none;
+}
+
+.chat-box {
+	width: 50%;
+	margin: 0 auto;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+.message-input {
+	width: 100%;
+	height: 40px;
+	font-size: 14px;
+	border: 1px solid #ccc;
+}
+
+.message-list {
+	margin-top: 10px;
+}
+
+</style>
+
+<!-- Banner -->
+
+<!-- Section -->
+<div class="chat-box">
+	<table>
+		<tr id="tth">
+			<td>채팅</td>
+		</tr>
+		<tr>
+			<td>
+				<div class="message-list" id="messageList"></div>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<input type="text" class="message-input" id="messageInput" />
+				<button onclick="sendMessage()">전송</button>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<script>
+function sendMessage() {
+	var messageInput = document.getElementById("messageInput");
+	var messageList = document.getElementById("messageList");
+	var message = messageInput.value;
+	// 여기에서 메세지 전송 코드를 작성하세요.
+	// 예: 서버에 AJAX 요청을 보내거나 WebSocket을 사용하여 메세지를 전송하는 등의 방식으로 구현할 수 있습니다.
+	// 이 예제에서는 메세지를 콘솔에 출력하는 방식으로 표시하겠습니다.
+	console.log("전송된 메세지: " + message);
+	messageList.innerHTML += "<p>" + message + "</p>"; // 메시지를 화면에 추가
+	messageInput.value = ""; // 전송 후 입력 필드 초기화
+}
+
+// 엔터 키를 눌렀을 때 전송되도록 설정
+document.getElementById("messageInput").addEventListener("keyup", function(event) {
+	if (event.keyCode === 13) { // 엔터 키 코드
+		sendMessage();
+	}
+});
+</script>

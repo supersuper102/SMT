@@ -1,0 +1,8 @@
+INDEX VERSION 1.4+C:\Users\shoo1\OneDrive\바탕 화면\aipage\SMT\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+2128863387.index
+1897077184.index
+2399742333.index
+1302250976.index
+2565104838.index
+1781684060.index
+1087792857.index

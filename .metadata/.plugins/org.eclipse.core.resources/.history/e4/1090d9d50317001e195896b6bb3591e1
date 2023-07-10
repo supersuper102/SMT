@@ -1,0 +1,123 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<style>
+    #chat-wrapper {
+        width: 60%;
+        height: 100%;
+        margin: 0 auto;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+    }
+
+    #message-input {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding: 10px;
+        background-color: #f3f3f3;
+        position: fixed;
+        bottom: 0;
+        left: 0; /* 채팅바를 왼쪽으로 이동 */
+    }
+
+    #message-input-field {
+        flex: 1;
+        margin-right: 10px;
+        border: none;
+        border-radius: 5px;
+        padding: 5px;
+    }
+
+    #send-message-button {
+        background-color: #f56a6a;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 5px 10px;
+        cursor: pointer;
+    }
+
+    #chat-message-window {
+        flex: 1;
+        overflow-y: auto;
+        padding: 10px;
+    }
+
+    .message {
+        margin-bottom: 10px;
+        padding: 5px;
+        background-color: #f3f3f3;
+        border-radius: 5px;
+    }
+
+    .message.sent {
+        background-color: #e6e6e6;
+        align-self: flex-end;
+    }
+
+    .message.received {
+        background-color: #f3f3f3;
+        align-self: flex-start;
+    }
+
+    .message-text {
+        margin: 0;
+    }
+    #login_join{
+        display:none;
+    }
+</style>
+
+<section id="chat-wrapper">
+    <div id="chat-message-window">
+        <!-- 메시지 출력 부분 -->
+    </div>
+
+    <div id="message-input">
+        <input type="text" id="message-input-field" placeholder="메시지를 입력하세요">
+        <button id="send-message-button">전송</button>
+    </div>
+</section>
+
+<script>
+    const chatMessageWindow = document.getElementById('chat-message-window');
+    const messageInputField = document.getElementById('message-input-field');
+    const sendMessageButton = document.getElementById('send-message-button');
+
+    function addMessage(content, sent = true) {
+        const message = document.createElement('div');
+        message.classList.add('message');
+        message.classList.add(sent ? 'sent' : 'received');
+
+        const messageText = document.createElement('p');
+        messageText.classList.add('message-text');
+        messageText.textContent = content;
+
+        message.appendChild(messageText);
+        chatMessageWindow.appendChild(message);
+
+        chatMessageWindow.scrollTop = chatMessageWindow.scrollHeight;
+    }
+
+    function sendMessage() {
+        const content = messageInputField.value.trim();
+        if (content !== '') {
+            addMessage(content, true);
+            messageInputField.value = '';
+        }
+    }
+
+    messageInputField.addEventListener('keydown', (event) => {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            sendMessage();
+        }
+    });
+
+    sendMessageButton.addEventListener('click', () => {
+        sendMessage();
+    });
+</script>

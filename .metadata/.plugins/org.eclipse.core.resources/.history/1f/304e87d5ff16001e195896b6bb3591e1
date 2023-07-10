@@ -1,0 +1,49 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+
+<style>
+#tth {
+	font-size: 13pt;
+	font-weight: bold;
+	background-color: rgb(253, 227, 227);
+	text-align: center;
+}
+
+tr:not(:first-child) {
+	font-size: 12pt;
+	color: black;
+	text-align: center;
+}
+
+tr:not(:first-child) td:nth-child(2) {
+	text-align: left;
+}
+
+#lbtn {
+	text-align: right;
+	font-size: 15pt;
+}
+
+input {
+	border: solid 1px #f56a6a;
+}
+#login_join{
+display:none;}
+</style>
+
+<!-- Banner -->
+
+
+
+
+	
+		
+		</ul>
+	</div>
+	
+
+</section>
+
+
+<!-- Section -->

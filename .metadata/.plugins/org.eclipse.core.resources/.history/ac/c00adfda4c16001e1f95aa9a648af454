@@ -1,0 +1,69 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
+
+<style>
+#tth {
+	font-size: 13pt;
+	font-weight: bold;
+	background-color: rgb(253, 227, 227);
+	text-align: center;
+}
+
+tr:not(:first-child) {
+	font-size: 12pt;
+	color: black;
+	text-align: center;
+}
+
+tr:not(:first-child) td:nth-child(2) {
+	text-align: left;
+}
+
+#lbtn {
+	text-align: right;
+	font-size: 15pt;
+}
+
+input {
+	border: solid 1px #f56a6a;
+}
+</style>
+
+<!-- Banner -->
+
+
+		</table>
+
+		<ul class="actions" style="text-align: right">
+			<li><a href="/board/write" class="button special small"><span
+					style="font-size: 12pt; font-family: sans-serif;">글쓰기</span></a></li>
+		</ul>
+
+		<ul class="pagination" style="text-align:center; font-size:15pt">
+		<c:if test="${cpage eq 1}">
+			<li><span class="button disabled small">Prev</span></li>
+		</c:if>
+		<c:if test="${cpage ne 1}">
+			<li><a href="list?cpage=${cpage - 1}&findType=${findType}&findKeyword=${findKeyword}" class="button small">Prev</a></li>
+		</c:if>
+		
+		<c:forEach var="i" begin="1" end="${pageCount}">
+			<li>
+			<a class="page <c:if test="${i eq cpage}">active</c:if>" href="list?cpage=${i}&findType=${findType}&findKeyword=${findKeyword}">${i}</a>
+			</li>
+		</c:forEach>
+		
+		<c:if test="${cpage eq pageCount}">
+			<li><span class="button disabled small">Next</span></li>
+		</c:if>
+		<c:if test="${cpage ne pageCount}">
+			<li><a href="list?cpage=${cpage + 1}&findType=${findType}&findKeyword=${findKeyword}" class="button small">Next</a></li>
+		</c:if>
+		</ul>
+	</div>
+
+</section>
+
+
+<!-- Section -->

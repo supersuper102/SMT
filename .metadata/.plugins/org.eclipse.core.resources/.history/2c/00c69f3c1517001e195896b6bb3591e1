@@ -1,0 +1,30 @@
+package com.smt.controller;
+
+import com.smt.model.ChatMessage;
+import com.smt.service.ChatService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+@Controller
+@RequestMapping("/chat")
+public class ChatController {
+    private final ChatService chatService;
+
+    @Autowired
+    public ChatController(ChatService chatService) {
+        this.chatService = chatService;
+    }
+
+    @PostMapping
+    @ResponseBody
+    public ChatMessage sendMessage(@RequestBody ChatMessage chatMessage) {
+        String userMessage = chatMessage.getMessage();
+        String response = chatService.getAnswerFromChatGPT(userMessage);
+        chatMessage.setAnswer(response);
+        return chatMessage;
+    }
+}

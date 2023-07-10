@@ -1,0 +1,10 @@
+package com.smt.model;
+
+public class ChatMessage {
+    private String message;
+    private String answer;
+
+    // Getter 및 Setter 메서드 생략
+
+    // 생성자 및 필요한 메서드 구현
+}

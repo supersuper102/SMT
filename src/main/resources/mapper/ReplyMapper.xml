@@ -1,0 +1,35 @@
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smt.mapper.ReplyMapper">
+	
+	<!-- 댓글 작성하기 -->
+	<insert id="insertReply" parameterType="Reply">
+		<selectKey keyProperty="rno" resultType="_int" order="BEFORE">
+			select reply_seq.nextval from dual
+		</selectKey>
+		insert into reply(bno,rno,idx,replycontent,wdate,hit)
+		values(#{bno},#{rno},#{idx},#{replycontent},SYSDATE,0)
+	</insert>
+	
+	<!-- 댓글 목록 가져오기 -->
+	<select id="selectReply" resultType="Reply" parameterType="_int">
+		select * from reply where bno=#{bno} order by rno asc
+	</select>
+	
+	<!-- 댓글 삭제하기 -->
+	<delete id="deleteReply" parameterType="_int">
+		delete from reply where rno=#{rno}
+	</delete>
+	
+	<!-- 댓글 전체 삭제하기 - 게시글 삭제시 해당 게시글의 모든 댓글 삭제 -->
+	<delete id="deleteAllReply" parameterType="_int">
+		delete from reply where bno=#{bno}
+	</delete>
+	
+	<!-- 댓글 수정하기 -->
+	<update id="updateReply" parameterType="Reply" >
+		update reply set replycontent=#{replycontent} where rno=#{rno}
+	</update>
+	
+</mapper>

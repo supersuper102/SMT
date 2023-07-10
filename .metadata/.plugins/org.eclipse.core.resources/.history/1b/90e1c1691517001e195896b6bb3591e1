@@ -1,0 +1,12 @@
+package com.smt.service;
+
+import java.util.List;
+import java.util.Map;
+
+import com.smt.model.BoardVO;
+
+
+public interface AiService {
+
+
+}

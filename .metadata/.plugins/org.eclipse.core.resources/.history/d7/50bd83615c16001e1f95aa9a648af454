@@ -1,0 +1,22 @@
+package com.smt.controller;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class Maintest {
+	OpenAiService service = new OpenAiService("your_token");
+	CompletionRequest completionRequest = CompletionRequest.builder()
+	        .prompt("Somebody once told me the world is gonna roll me")
+	        .model("ada")
+	        .echo(true)
+	        .build();
+	service.createCompletion(completionRequest).getChoices().forEach(System.out::println);
+}
+

@@ -1,0 +1,138 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<style>
+ 
+
+
+<style>
+#tth {
+	font-size: 13pt;
+	font-weight: bold;
+	background-color: rgb(253, 227, 227);
+	text-align: center;
+}
+
+tr:not(:first-child) {
+	font-size: 12pt;
+	color: black;
+	text-align: center;
+}
+
+tr:not(:first-child) td:nth-child(2) {
+	text-align: left;
+}
+
+#lbtn {
+	text-align: right;
+	font-size: 15pt;
+}
+
+input {
+	border: solid 1px #f56a6a;
+}
+#login_join{
+display:none;}
+</style>
+
+<!-- Banner -->
+
+
+
+
+	
+		
+		</ul>
+	</div>
+
+</section>
+
+
+<!-- Section -->
+</style>
+
+<section id="chat-wrapper">
+    <div id="chat-message-window">
+        <!-- 메시지 출력 부분 -->
+    </div>
+
+    <div id="message-input">
+        <input type="text" id="message-input-field" placeholder="메시지를 입력하세요">
+        <button id="send-message-button">전송</button>
+    </div>
+</section>
+
+<script>
+    const chatMessageWindow = document.getElementById('chat-message-window');
+    const messageInputField = document.getElementById('message-input-field');
+    const sendMessageButton = document.getElementById('send-message-button');
+
+    function addMessage(content, sent = true) {
+        const message = document.createElement('div');
+        message.classList.add('message');
+        message.classList.add(sent ? 'sent' : 'received');
+
+        const messageText = document.createElement('p');
+        messageText.classList.add('message-text');
+        messageText.textContent = content;
+
+        message.appendChild(messageText);
+        chatMessageWindow.appendChild(message);
+
+        chatMessageWindow.scrollTop = chatMessageWindow.scrollHeight;
+    }
+
+    function sendMessage() {
+        const content = messageInputField.value.trim();
+        if (content !== '') {
+            addMessage(content, true);
+            messageInputField.value = '';
+
+            // Chat GPT API 호출
+            fetchChatGPTResponse(content)
+                .then(response => {
+                    addMessage(response, false);
+                })
+                .catch(error => {
+                    console.error('Chat GPT API 호출 중 오류가 발생했습니다:', error);
+                });
+        }
+    }
+
+    async function fetchChatGPTResponse(message) {
+        const url = 'https://api.openai.com/v1/chat/completions';
+        const apiKey = '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'; // Chat GPT API 키를 입력하세요
+        const model = 'gpt-3.5-turbo'; // Chat GPT 모델 버전
+
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${apiKey}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                model: model,
+                messages: [{ role: 'system', content: message }]
+            })
+        };
+
+        try {
+            const response = await fetch(url, requestOptions);
+            const data = await response.json();
+            const reply = data.choices[0].message.content;
+            return reply;
+        } catch (error) {
+            throw new Error(error);
+        }
+    }
+
+    messageInputField.addEventListener('keydown', (event) => {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            sendMessage();
+        }
+    });
+
+    sendMessageButton.addEventListener('click', () => {
+        sendMessage();
+    });
+</script>
